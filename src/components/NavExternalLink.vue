@@ -1,7 +1,7 @@
 <template>
     <aside :class="{ 'w-20 border-r' : isOpen }" class="lg:flex hidden flex-col justify-between items-center">
         <nav :class="{ 'lg:flex ' : isOpen }"  class="hidden p-4 flex-col items-center">
-            <ul class="space-y-6">
+            <ul class="space-y-5">
                 <li class="">
                    <a href="#" class="rounded-lg bg-gray-50 hover:bg-gray-100 p-2 inline-flex">
                         <svg class="w-8 h-8 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>

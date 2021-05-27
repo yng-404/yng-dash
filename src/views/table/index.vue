@@ -1,5 +1,5 @@
 <template>
-    <div class="relative">
+    <div class="relative lg:p-6 p-4">
         <yng-table 
             :fields="fields"
             :localData="mockData"
@@ -38,7 +38,7 @@ export default {
                     title: 'Published',
                     name: 'isPublished',
                     sortable: false,
-                    width: 'w-24',
+                    width: 'w-32',
                     tdAlign: 'text-center',
                     thAlign: 'text-center',
                     hideBreadpoint: 'md',
@@ -53,7 +53,8 @@ export default {
                 {
                     title: 'Stock',
                     name: 'stock',
-                    width: 'w-24',
+                    width: 'w-32',
+                    hideBreadpoint: 'md',
                     tdAlign: 'text-center',
                     thAlign: 'text-center',
 
@@ -61,6 +62,8 @@ export default {
                 {
                     title: 'Price',
                     name: 'price',
+                    width: 'w-28',
+                    tdAlign: 'text-right',
                 }
             ]
         }

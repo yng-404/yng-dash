@@ -5,16 +5,16 @@
             :isMenuOpen="isMenuOpen"
             @toggleMenu="isMenuOpen = !isMenuOpen" 
         />
-        <main class="flex-1 w-full relative overflow-hidden">
+        <div class="w-full h-full overflow-auto">
             <nav-header 
                 :isMenuOpen="isMenuOpen"
                 @toggleMenu="isMenuOpen = !isMenuOpen" 
             />
-            <div class="lg:p-6 p-4 overflow-auto">
+            <main class="overflow-auto">
                 <router-view />
-            </div>
-        </main>
-        <nav-footer />
+            </main>
+            <nav-footer />
+        </div>
     </div>
 </template>
 

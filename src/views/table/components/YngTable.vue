@@ -15,11 +15,11 @@
                             <button
                                 @click.prevent="toggleSort(field.name, field.sortAsc)"
                                 :disabled="!field.sortable"
-                                :class="{ 'cursor-default' : !field.sortable }"
-                                class="flex w-full space-x-3 items-center justify-between focus:outline-none">
+                                :class="[{ 'cursor-default' : !field.sortable }, thFontSize]"
+                                class="flex w-full items-center justify-between focus:outline-none">
                                 <span>
                                     <span v-if="field.icon" v-html="field.icon"></span>
-                                    <span>{{ field.title || field.name }}</span>
+                                    <span class="text-xs uppercase tracking-widest">{{ field.title || field.name }}</span>
                                 </span>
                                 <template v-if="field.sortable">
                                     <template v-if="field.sorted">
@@ -40,7 +40,8 @@
                             <input type="checkbox" name="" id="" />
                         </td>
                         <td v-for="field in headings" :key="field.name" 
-                            :class="[padding, innerBorderY, field.hiddenWhen, field.tdAlign]">
+                            class=" whitespace-nowrap truncate tracking-wide"
+                            :class="[padding, innerBorderY, field.hiddenWhen, field.tdAlign, tdFontSize]">
                             <template v-if="field.renderAsSlot">
                                 <slot :name="`${field.name}Slot`" :dataItem="item[field.name]"></slot>
                             </template>
@@ -108,7 +109,14 @@ export default {
         },
         paginationPosition: {
             default: 'right'
+        },
+        thFontSize: {
+            default: 'text-sm'
+        },
+        tdFontSize: {
+            default: 'text-sm'
         }
+
     },
     data() {
         return {
@@ -178,9 +186,9 @@ export default {
                     renderAsSlot: false,
                     icon: null,
                     hiddenWhen: el.hideBreadpoint !== undefined ? `${el.hideBreadpoint}:table-cell hidden` : '',
-                    sortIcon: `<svg class="w-4 h-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>`,
-                    sortAscIcon: `<svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>`,
-                    sortDescIcon: `<svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>`,
+                    sortIcon: `<svg class="w-5 h-5 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>`,
+                    sortAscIcon: `<svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>`,
+                    sortDescIcon: `<svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>`,
                     ...fieldValues,
                 }
             })
@@ -192,7 +200,7 @@ export default {
 
 <style scoped>
     .max-height {
-        max-height: 750px;
+        max-height: 720px;
     }
     table {
         border-collapse: separate;

@@ -1,5 +1,5 @@
 <template>
-    <header class="h-14 border-b py-3 flex items-center">
+    <header class="h-14 border-b py-3 flex items-center sticky top-0 bg-white z-10">
         <nav class="flex items-center">
             <button 
                 @click="$emit('toggleMenu')"

@@ -1,17 +1,25 @@
 <template>
-    <div class="">
+    <div class="relative">
         <yng-table 
             :fields="fields"
+            :localData="mockData"
             @sortTable="sortTable($event)"
-        />
+        >
+            <template v-slot:productItemsSlot="{ dataItem }">
+                {{ dataItem[0].catalog.title }}
+            </template>
+            <template v-slot:isPublishedSlot="{ dataItem }">
+                <span v-if="dataItem === 1 || dataItem === true">Yes</span>
+                <span v-else>No</span>
+            </template>
+        </yng-table>
     </div>
 </template>
 
 <script>
 
-
-
 import YngTable from './components/YngTable.vue'
+import mockData from '../../api/data.json'
 
 export default {
     components: {
@@ -19,15 +27,40 @@ export default {
     },
     data() {
         return {
+            mockData,
             fields: [
-                'Title',
                 {
-                    name: 'Author',
-                    sortable: false,
+                    title: 'Product',
+                    name: 'productItems',
+                    renderAsSlot: true,  
                 },
                 {
-                    name: 'Date',
+                    title: 'Published',
+                    name: 'isPublished',
+                    sortable: false,
+                    width: 'w-24',
+                    tdAlign: 'text-center',
+                    thAlign: 'text-center',
+                    hideBreadpoint: 'md',
+                    renderAsSlot: true,  
+                },
+                {
+                    title: 'Date Posted',
+                    name: 'datePosted',
                     sorted: true,
+                    hideBreadpoint: 'lg'
+                },
+                {
+                    title: 'Stock',
+                    name: 'stock',
+                    width: 'w-24',
+                    tdAlign: 'text-center',
+                    thAlign: 'text-center',
+
+                },
+                {
+                    title: 'Price',
+                    name: 'price',
                 }
             ]
         }

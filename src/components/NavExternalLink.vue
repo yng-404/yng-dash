@@ -1,6 +1,6 @@
 <template>
-    <aside class="lg:block hidden w-20 border-r">
-        <nav class="p-4 flex flex-col items-center">
+    <aside :class="{ 'w-20 border-r' : isOpen }" class="lg:flex hidden flex-col justify-between items-center">
+        <nav :class="{ 'lg:flex ' : isOpen }"  class="hidden p-4 flex-col items-center">
             <ul class="space-y-6">
                 <li class="">
                    <a href="#" class="rounded-lg bg-gray-50 hover:bg-gray-100 p-2 inline-flex">
@@ -29,11 +29,21 @@
                 </li>
             </ul>
         </nav>
+        <div class="p-4 py-5 z-10" :class="{ 'fixed bottom-0 left-0' : !isOpen }">
+            <button @click="isOpen = !isOpen" class="focus:outline-none p-2 rounded-md hover:bg-gray-200">
+                <svg v-show="isOpen" class="w-6 h-6 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                <svg v-show="!isOpen" class="w-6 h-6 opacity-50 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+            </button>
+        </div>
     </aside>
 </template>
 
 <script>
 export default {
-    
+    data() {
+        return {
+            isOpen: true
+        }
+    }
 }
 </script>

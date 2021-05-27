@@ -1,63 +1,68 @@
 <template>
-    <div class="space-y-4">
+    <div class="space-y-4 sticky">
         <table-topbar>
             {{ tableName }}
         </table-topbar>
-        <div class="border rounded-md">
+        <div class="border rounded-md overflow-y-scroll relative max-height y-scroll-bar">
             <table class="table-fixed w-full">
-                <thead class="border-b">
-                    <tr :class="innerBorderX">
+                <thead>
+                    <tr :class="innerBorderX" class="sticky top-0 bg-gray-100 z-10">
+                        <th class="w-12 text-center">
+                            <input type="checkbox" name="" id="" />
+                        </th>
                         <th v-for="field in headings" :key="field.name" 
-                            :class="padding">
+                            :class="[padding, field.hiddenWhen, field.width, field.thAlign]">
                             <button
                                 @click.prevent="toggleSort(field.name, field.sortAsc)"
                                 :disabled="!field.sortable"
                                 :class="{ 'cursor-default' : !field.sortable }"
-                                class="flex w-full items-center justify-between focus:outline-none">
+                                class="flex w-full space-x-3 items-center justify-between focus:outline-none">
                                 <span>
                                     <span v-if="field.icon" v-html="field.icon"></span>
-                                    <span>{{ field.name }}</span>
+                                    <span>{{ field.title || field.name }}</span>
                                 </span>
                                 <template v-if="field.sortable">
                                     <template v-if="field.sorted">
-                                        <span v-if="field.sortAsc" v-html="field.sortAscIcon"></span>
-                                        <span v-else v-html="field.sortDescIcon"></span>
+                                        <span v-if="field.sortAsc" v-html="field.sortAscIcon" class=""></span>
+                                        <span v-else v-html="field.sortDescIcon" class=""></span>
                                     </template>
-                                    <span v-else v-html="field.sortIcon"></span>
+                                    <span v-else v-html="field.sortIcon" class=""></span>
                                 </template>
                             </button>
                         </th>
+                        <th class="w-12 text-center"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr :class="innerBorderX">
-                        <td :class="[padding, innerBorderY]">
-                            afdsf
+                    <tr v-for="(item, index) in dataTable.data" :key="index" 
+                        :class="[innerBorderX, { 'bg-gray-50 bg-opacity-40' : index % 2 === 0 }]">
+                        <td :class="innerBorderY" class="text-center w-12">
+                            <input type="checkbox" name="" id="" />
                         </td>
-                        <td :class="[padding, innerBorderY]">
-                            affds
+                        <td v-for="field in headings" :key="field.name" 
+                            :class="[padding, innerBorderY, field.hiddenWhen, field.tdAlign]">
+                            <template v-if="field.renderAsSlot">
+                                <slot :name="`${field.name}Slot`" :dataItem="item[field.name]"></slot>
+                            </template>
+                            <span v-else>
+                                {{ item[field.name] }}
+                            </span>
                         </td>
-                        <td :class="[padding, innerBorderY]">
-                            asfdsfds
+                        <td :class="innerBorderY" class="w-12 text-center">
+                            <button class="focus:outline-none">
+                                <svg class="w-5 h-5 opacity-50 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
+                            </button>
                         </td>
                     </tr>
-                
-                    <tr :class="innerBorderX">
-                        <td :class="[padding, innerBorderY]">
-                            afdsf
-                        </td>
-                        <td :class="[padding, innerBorderY]">
-                            affds
-                        </td>
-                        <td :class="[padding, innerBorderY]">
-                            asfdsfds
-                        </td>
-                    </tr> 
                 </tbody>
             </table>
         </div>
 
-        <table-pagination />
+        <table-pagination 
+            :pagination="dataTable.meta"
+            :loading="loading"
+            :paginationOrder="paginationOrder"
+        />
     </div>
 </template>
 
@@ -100,11 +105,15 @@ export default {
         },
         paddingY: {
             default: 'py-2'
+        },
+        paginationPosition: {
+            default: 'right'
         }
     },
     data() {
         return {
             dataFromAPI: null,
+            loading: false,
             headings: this.tableHeadings()
         }
     },
@@ -127,12 +136,25 @@ export default {
         },
         padding() {
             return `${this.paddingX} ${this.paddingY}`
+        },
+        paginationOrder() {
+            return {
+                right: 'order-2',
+                left: 'order-0'
+            }[this.paginationPosition]
+        },
+        dataTable() {
+            return this.requestURL ? this.dataFromAPI : this.localData
         }
     },
     methods: {
         fetchDataFromAPI(URL) {
+            this.loading = true
             axios.get(URL, { params: this.requestParams }).then(response => {
                 this.dataFromAPI = response.data
+                setTimeout(() => {
+                    this.loading = false
+                }, 300)
             })
         },
         toggleSort(name, sortAsc) {
@@ -155,10 +177,11 @@ export default {
                     sortAsc: true,
                     renderAsSlot: false,
                     icon: null,
+                    hiddenWhen: el.hideBreadpoint !== undefined ? `${el.hideBreadpoint}:table-cell hidden` : '',
                     sortIcon: `<svg class="w-4 h-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>`,
                     sortAscIcon: `<svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>`,
                     sortDescIcon: `<svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>`,
-                    ...fieldValues
+                    ...fieldValues,
                 }
             })
         }
@@ -166,3 +189,35 @@ export default {
     
 }
 </script>
+
+<style scoped>
+    .max-height {
+        max-height: 750px;
+    }
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    table th {
+        border-bottom: 1px solid rgb(229, 231, 235);
+    }
+    ::-webkit-scrollbar {
+        height: 0px;
+        width: 0px; 
+        background: transparent;
+    }
+    .y-scroll-bar::-webkit-scrollbar-track {
+        background-color: #e4e4e4;
+    }
+
+    .y-scroll-bar::-webkit-scrollbar {
+        width: 12px;
+        background-color: #E7E5E4;
+    }
+
+    .y-scroll-bar::-webkit-scrollbar-thumb {
+        background-color: #c7c7c7;
+        border-radius: 4px;
+    }
+ </style>

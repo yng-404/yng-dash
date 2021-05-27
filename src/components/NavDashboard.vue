@@ -1,13 +1,13 @@
 <template>
     <nav 
         :class="isMenuOpen? '' : 'lg:block hidden'"
-        class="lg:w-64 w-14 border-r space-y-4">
+        class="xl:w-64 lg:w-56 w-14 border-r space-y-4 sticky top-0 h-full">
         <button 
             @click="$emit('toggleMenu')"
             class="lg:hidden px-4 py-3 h-14 w-full flex justify-center items-center focus:outline-none">
             <svg class="w-6 h-6 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
         </button>
-        <ul class="space-y-4 lg:pt-16">
+        <ul class="space-y-4 lg:pt-16 text-sm tracking-wider">
             <li v-for="menu in dashboardMenu" :key="menu.name">
                 <router-link :to="{ name: menu.route}" 
                     :class="{ 'border-red-600 bg-red-300 bg-opacity-10' : $route.name === menu.route }"

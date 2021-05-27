@@ -2,6 +2,7 @@
     <div class="">
         <yng-table 
             :fields="fields"
+            @sortTable="sortTable($event)"
         />
     </div>
 </template>
@@ -25,10 +26,16 @@ export default {
                     sortable: false,
                 },
                 {
-                    name: 'Date'
+                    name: 'Date',
+                    sorted: true,
                 }
             ]
         }
-    }
+    },
+    // methods: {
+    //     sortTable(event) {
+    //         alert(`${event.orderBy}: ${event.sortOrder}`)
+    //     }
+    // }
 }
 </script>

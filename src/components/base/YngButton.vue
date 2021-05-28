@@ -34,7 +34,7 @@ export default {
                 warning: '',
                 info: '',
                 secondary: '',
-                light: 'hover:bg-gray-100 bg-white border',
+                light: 'hover:bg-gray-50 lg:bg-gradient-to-tr from-bg-gray-50 to-bg-white lg:border lg:text-gray-500 text-gray-600',
                 dark: ''
             }[this.btnColor]
         }

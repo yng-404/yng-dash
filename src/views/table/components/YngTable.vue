@@ -1,12 +1,19 @@
 <template>
     <div class="space-y-4 sticky" v-if="dataTable">
+
+        <!-- TOPBAR -->
+
         <table-topbar 
             @selectBorderStyle="internalBorderStyle = $event"
             :internalBorderStyle="borderSetting"
             :checkedAll="checkedAll"
+            :filters="filters"
             :checked="checked">
             {{ tableName }}
         </table-topbar>
+
+        <!-- MAIN TABLE -->
+
         <div class="border rounded-md overflow-y-auto relative max-height y-scroll-bar">
             <table class="table-fixed w-full">
                 <thead>
@@ -30,7 +37,7 @@
                                     { 'justify-between' : borderSetting !== 'horizontal' }
                                 ]"
                                 class="flex w-full items-center space-x-4 focus:outline-none truncate">
-                                <span>
+                                <span class="inline-flex items-center space-x-2">
                                     <span v-if="field.icon" v-html="field.icon"></span>
                                     <span class="text-2xs uppercase tracking-widest">{{ field.title || field.name }}</span>
                                 </span>
@@ -70,9 +77,14 @@
                             <template v-if="field.renderAsSlot">
                                 <slot :name="`${field.name}Slot`" :dataItem="item[field.name]"></slot>
                             </template>
-                            <span v-else>
-                                {{ item[field.name] }}
-                            </span>
+                            <template v-else>
+                                <span v-if="field.format !== undefined">
+                                    {{ field.format(item[field.name]) }}
+                                </span>
+                                <span v-else>
+                                    {{ item[field.name] }}
+                                </span>
+                            </template>
                         </td>
                         <td :class="{ 'border-t' : borderSetting !== 'vertical' }" class="md:w-24 w-12 text-right">
                             <div class="space-x-1 md:flex hidden items-center justify-end pr-4">
@@ -85,7 +97,7 @@
                             </div>
                             <!-- <table-action /> -->
                             <div class="flex items-center justify-center relative md:hidden">
-                                <button @click.prevent="showModal = true" class="focus:outline-none flex">
+                                <button @click.prevent="show.actionModal = true" class="focus:outline-none flex">
                                     <svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
                                 </button>
                             </div>
@@ -95,6 +107,8 @@
             </table>
         </div>
 
+        <!-- PAGINATION -->
+
         <table-pagination 
             @goToPage="fetchDataFromAPI($event)"
             :pagination="dataTable.meta"
@@ -102,42 +116,29 @@
             :paginationOrder="paginationOrder"
         />
 
+        <!-- ACTION MODAL -->
         <teleport  to="#modals">
-            <div v-if="showModal" class="md:hidden z-30 h-screen fixed w-full inset-0">
-                <div class="fixed inset-0 transform transition-all" @click="showModal = false">
-                    <div class="absolute inset-0 bg-gray-700 opacity-75 z-20"></div>
-                </div>
-                <div class="py-4 md:top-0 md:bottom-auto bottom-0 md:items-top md:justify-center fixed flex inset-x-0 w-full max-h-screen bg-white rounded-t-md">
-                    <div class="w-full">
-                        <div class="px-6 pb-4 flex justify-between items-center w-full">
-                            <span class="tracking-wider">Modal Title</span>
-                            <button @click="showModal = false" class="focus:outline-none p-1  opacity-50 hover:opacity-90 rounded-md hover:bg-gray-100 hover:text-red-600">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                            </button>
-                        </div>
-                        <button class="px-6 py-3 hover:bg-red-300 hover:bg-opacity-20 w-full flex items-center space-x-3">
-                            <svg class="w-6 h-6 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                            <span class="text-sm tracking-wider">Edit</span>
-                        </button>
-                        <button class="px-6 py-3 hover:bg-red-300 hover:bg-opacity-20 w-full flex items-center space-x-3">
-                            <svg class="w-6 h-6 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            <span class="text-sm tracking-wider">Delete</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <yng-modal :show="show.actionModal" @close="show.actionModal = false" class="md:hidden">
+                <template #title>Action</template>
+                <button class="px-6 py-3 hover:bg-red-300 hover:bg-opacity-20 w-full flex items-center space-x-3">
+                    <svg class="w-6 h-6 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                    <span class="text-sm tracking-wider">Edit</span>
+                </button>
+                <button class="px-6 py-3 hover:bg-red-300 hover:bg-opacity-20 w-full flex items-center space-x-3">
+                    <svg class="w-6 h-6 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    <span class="text-sm tracking-wider">Delete</span>
+                </button>
+            </yng-modal>
         </teleport>
 
-        
     </div>
 </template>
 
 <script>
 
-// import TableItem from './TableItem.vue'
 import TablePagination from './TablePagination.vue'
 import TableTopbar from './TableTopbar.vue'
-// import TableAction from './TableAction.vue'
+import YngModal from '@/components/base/YngModal.vue'
 
 import axios from 'axios'
 
@@ -146,8 +147,7 @@ export default {
     components: { 
         TableTopbar,
         TablePagination,
-        // TableAction,
-        // TableItem 
+        YngModal,
     },
     props: {
         tableName: {
@@ -200,7 +200,10 @@ export default {
             headings: this.tableHeadings(),
             checkedAll: false,
             checked: [],
-            showModal: false,
+            show: {
+                actionModal: false,
+                optionModal: false,
+            }
         }
     },
     mounted() {
@@ -214,6 +217,11 @@ export default {
         }
     },
     computed: {
+        filters() {
+            const filterable = this.headings.filter(el => el.filterable).map(item => item.name)
+            const filter = this.dataTable.data.map(el => el[filterable[0]])
+            return [...new Set(filter)]
+        },
         borderSetting() {
             return this.borderStyle ? this.borderStyle : this.internalBorderStyle
         },
@@ -278,6 +286,7 @@ export default {
                     sorted: false,
                     sortAsc: true,
                     renderAsSlot: false,
+                    filterable: false,
                     icon: null,
                     hiddenWhen: el.hideBreadpoint !== undefined ? `${el.hideBreadpoint}:table-cell hidden` : '',
                     sortIcon: `<svg class="w-4 h-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>`,

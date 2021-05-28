@@ -21,10 +21,10 @@
 
 <script>
 
-import NavDashboard from '../../components/NavDashboard.vue'
-import NavExternalLink from '../../components/NavExternalLink.vue'
-import NavFooter from '../../components/NavFooter.vue'
-import NavHeader from '../../components/NavHeader.vue'
+import NavDashboard from '@/components/layout/NavDashboard.vue'
+import NavExternalLink from '@/components/layout/NavExternalLink.vue'
+import NavFooter from '@/components/layout/NavFooter.vue'
+import NavHeader from '@/components/layout/NavHeader.vue'
 
 export default {
     components: { 

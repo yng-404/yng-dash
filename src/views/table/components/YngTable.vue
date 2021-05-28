@@ -1,22 +1,34 @@
 <template>
-    <div class="space-y-4 sticky">
-        <table-topbar>
+    <div class="space-y-4 sticky" v-if="dataTable">
+        <table-topbar 
+            @selectBorderStyle="internalBorderStyle = $event"
+            :internalBorderStyle="borderSetting"
+            :checked="checked">
             {{ tableName }}
         </table-topbar>
-        <div class="border rounded-md overflow-y-scroll relative max-height y-scroll-bar">
+        <div class="border rounded-md overflow-y-auto relative max-height y-scroll-bar">
             <table class="table-fixed w-full">
                 <thead>
                     <tr :class="innerBorderX" class="sticky top-0 bg-gray-100 z-10">
-                        <th class="w-12 text-center">
-                            <input type="checkbox" name="" id="" />
+                        <th v-if="uniqueIdentifier" class="w-12 text-center">
+                            <input 
+                                type="checkbox" 
+                                id="checkAllEntries" 
+                                v-model="checkedAll" 
+                                @change.prevent="toggleChecked" 
+                            />
                         </th>
                         <th v-for="field in headings" :key="field.name" 
                             :class="[padding, field.hiddenWhen, field.width, field.thAlign]">
                             <button
                                 @click.prevent="toggleSort(field.name, field.sortAsc)"
                                 :disabled="!field.sortable"
-                                :class="[{ 'cursor-default' : !field.sortable }, thFontSize]"
-                                class="flex w-full items-center justify-between focus:outline-none">
+                                :class="[
+                                    thFontSize,
+                                    { 'cursor-default' : !field.sortable }, 
+                                    { 'justify-between' : borderSetting !== 'horizontal' }
+                                ]"
+                                class="flex w-full items-center space-x-4 focus:outline-none">
                                 <span>
                                     <span v-if="field.icon" v-html="field.icon"></span>
                                     <span class="text-xs uppercase tracking-widest">{{ field.title || field.name }}</span>
@@ -35,9 +47,14 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in dataTable.data" :key="index" 
-                        :class="[innerBorderX, { 'bg-gray-50 bg-opacity-40' : index % 2 === 0 }]">
-                        <td :class="innerBorderY" class="text-center w-12">
-                            <input type="checkbox" name="" id="" />
+                        :class="[innerBorderX, index % 2 === 0? 'bg-gray-50 bg-opacity-50' : 'bg-white bg-opacity-50' ]">
+                        <td v-if="uniqueIdentifier" :class="innerBorderY" class="text-center w-12">
+                            <input 
+                                type="checkbox" 
+                                :value="item[uniqueIdentifier]" 
+                                v-model="checked" 
+                                :name="`${item}-${index}`" 
+                            />
                         </td>
                         <td v-for="field in headings" :key="field.name" 
                             class=" whitespace-nowrap truncate tracking-wide"
@@ -50,7 +67,7 @@
                             </span>
                         </td>
                         <td :class="innerBorderY" class="w-12 text-center">
-                            <button class="focus:outline-none">
+                            <button class="focus:outline-none inline-flex text-center hover:bg-gray-100 p-1 rounded-md">
                                 <svg class="w-5 h-5 opacity-50 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
                             </button>
                         </td>
@@ -60,6 +77,7 @@
         </div>
 
         <table-pagination 
+            @goToPage="fetchDataFromAPI($event)"
             :pagination="dataTable.meta"
             :loading="loading"
             :paginationOrder="paginationOrder"
@@ -76,6 +94,7 @@ import TableTopbar from './TableTopbar.vue'
 import axios from 'axios'
 
 export default {
+    name: 'YngTable',
     components: { 
         TableTopbar,
         TablePagination,
@@ -84,6 +103,9 @@ export default {
     props: {
         tableName: {
             default: 'YNG Table'
+        },
+        uniqueIdentifier: {
+            default: null
         },
         fields: {
             type: Array,
@@ -99,7 +121,7 @@ export default {
             default: null
         },
         borderStyle: {
-            default: 'box'
+            default: null
         },
         paddingX: {
             default: 'px-4'
@@ -122,7 +144,10 @@ export default {
         return {
             dataFromAPI: null,
             loading: false,
-            headings: this.tableHeadings()
+            internalBorderStyle: 'horizontal',
+            headings: this.tableHeadings(),
+            checkedAll: false,
+            checked: []
         }
     },
     mounted() {
@@ -136,11 +161,14 @@ export default {
         }
     },
     computed: {
+        borderSetting() {
+            return this.borderStyle ? this.borderStyle : this.internalBorderStyle
+        },
         innerBorderX() {
-            return this.borderStyle !== 'horizontal' ? 'divide-x' : ''
+            return this.borderSetting !== 'horizontal' ? 'divide-x' : ''
         },
         innerBorderY() {
-            return this.borderStyle === 'vertical' ? 'divide-x' : 'border-t'
+            return this.borderSetting === 'vertical' ? 'divide-x' : 'border-t'
         },
         padding() {
             return `${this.paddingX} ${this.paddingY}`
@@ -153,17 +181,30 @@ export default {
         },
         dataTable() {
             return this.requestURL ? this.dataFromAPI : this.localData
+        },
+        checkedIn() {
+            return this.dataTable.data.map(el => el[this.uniqueIdentifier])
         }
     },
     methods: {
         fetchDataFromAPI(URL) {
             this.loading = true
-            axios.get(URL, { params: this.requestParams }).then(response => {
+            axios.get(URL).then(response => {
                 this.dataFromAPI = response.data
                 setTimeout(() => {
                     this.loading = false
                 }, 300)
             })
+        },
+        toggleChecked() {
+            if(this.checkedAll) {
+                if(this.checked.length < this.dataTable.data.length) {
+                    const allId = this.dataTable.data.map(el => el[this.uniqueIdentifier])
+                    this.checked = allId
+                }
+            } else {
+                this.checked = []
+            }
         },
         toggleSort(name, sortAsc) {
             const sort = this.headings.find(el => el.name === name)
@@ -220,7 +261,7 @@ export default {
     }
 
     .y-scroll-bar::-webkit-scrollbar {
-        width: 12px;
+        width: 10px;
         background-color: #E7E5E4;
     }
 

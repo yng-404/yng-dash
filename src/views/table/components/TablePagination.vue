@@ -3,6 +3,7 @@
         <div :class="paginationOrder" class="inline-flex justify-center items-center rounded-md border overflow-hidden divide-x">
             <button 
                 v-for="(page, index) in pagination.links" :key="index" 
+                @click.prevent="$emit('goToPage', page.url)"
                 :disabled="page.active || !page.url || loading"
                 :class="{ 
                     'bg-gray-300' : page.active,

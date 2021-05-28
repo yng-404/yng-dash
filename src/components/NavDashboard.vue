@@ -1,6 +1,6 @@
 <template>
     <nav 
-        :class="isMenuOpen? '' : 'lg:block hidden'"
+        :class="isMenuOpen? 'absolute' : 'lg:block hidden'"
         class="xl:w-72 lg:w-64 w-14 border-r space-y-4 sticky top-0 h-full">
         <button 
             @click="$emit('toggleMenu')"
@@ -12,7 +12,7 @@
             <h2 class="text-lg tracking-wider font-medium">Your Name</h2>
             <p class="text-xs tracking-wider text-gray-400">@handle</p>
         </div>
-        <ul class="space-y-3 lg:pt-8 text-sm tracking-wider">
+        <ul class="space-y-2 lg:pt-8 text-sm tracking-wider">
             <li v-for="menu in sortedMenu" :key="menu.name">
                 <router-link :to="{ name: menu.route}" 
                     :class="{ 'border-red-600 bg-red-300 bg-opacity-10' : $route.name === menu.route }"

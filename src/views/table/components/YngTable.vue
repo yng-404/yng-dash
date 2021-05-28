@@ -3,6 +3,7 @@
         <table-topbar 
             @selectBorderStyle="internalBorderStyle = $event"
             :internalBorderStyle="borderSetting"
+            :checkedAll="checkedAll"
             :checked="checked">
             {{ tableName }}
         </table-topbar>
@@ -28,10 +29,10 @@
                                     { 'cursor-default' : !field.sortable }, 
                                     { 'justify-between' : borderSetting !== 'horizontal' }
                                 ]"
-                                class="flex w-full items-center space-x-4 focus:outline-none">
+                                class="flex w-full items-center space-x-4 focus:outline-none truncate">
                                 <span>
                                     <span v-if="field.icon" v-html="field.icon"></span>
-                                    <span class="text-xs uppercase tracking-widest">{{ field.title || field.name }}</span>
+                                    <span class="text-2xs uppercase tracking-widest">{{ field.title || field.name }}</span>
                                 </span>
                                 <template v-if="field.sortable">
                                     <template v-if="field.sorted">
@@ -42,12 +43,19 @@
                                 </template>
                             </button>
                         </th>
-                        <th class="w-12 text-center"></th>
+                        <th class="md:w-24 w-12 text-center whitespace-nowrap">
+                            <span class="md:inline hidden text-2xs uppercase tracking-widest font-normal">
+                                Action
+                            </span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in dataTable.data" :key="index" 
-                        :class="[innerBorderX, index % 2 === 0? 'bg-gray-50 bg-opacity-50' : 'bg-white bg-opacity-50' ]">
+                        :class="[
+                            { 'bg-gray-50 animate-pulse' : loading },
+                            innerBorderX, index % 2 === 0? 'bg-gray-50 bg-opacity-50' : 'bg-white bg-opacity-50'
+                        ]">
                         <td v-if="uniqueIdentifier" :class="innerBorderY" class="text-center w-12">
                             <input 
                                 type="checkbox" 
@@ -66,10 +74,21 @@
                                 {{ item[field.name] }}
                             </span>
                         </td>
-                        <td :class="innerBorderY" class="w-12 text-center">
-                            <button class="focus:outline-none inline-flex text-center hover:bg-gray-100 p-1 rounded-md">
-                                <svg class="w-5 h-5 opacity-50 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
-                            </button>
+                        <td :class="{ 'border-t' : borderSetting !== 'vertical' }" class="md:w-24 w-12 text-right">
+                            <div class="space-x-1 md:flex hidden items-center justify-end pr-4">
+                                <button class="focus:outline-none opacity-30 hover:opacity-90 text-red-600 inline-flex text-center hover:bg-gray-100 p-1 rounded-md">
+                                    <svg class="w-5 h-5 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                                <button class="focus:outline-none opacity-30 hover:opacity-90 text-blue-600 inline-flex text-center hover:bg-gray-100 p-1 rounded-md">
+                                    <svg class="w-5 h-5 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                </button>
+                            </div>
+                            <!-- <table-action /> -->
+                            <div class="flex items-center justify-center relative md:hidden">
+                                <button @click.prevent="showModal = true" class="focus:outline-none flex">
+                                    <svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -82,6 +101,34 @@
             :loading="loading"
             :paginationOrder="paginationOrder"
         />
+
+        <teleport  to="#modals">
+            <div v-if="showModal" class="md:hidden z-30 h-screen fixed w-full inset-0">
+                <div class="fixed inset-0 transform transition-all" @click="showModal = false">
+                    <div class="absolute inset-0 bg-gray-700 opacity-75 z-20"></div>
+                </div>
+                <div class="py-4 md:top-0 md:bottom-auto bottom-0 md:items-top md:justify-center fixed flex inset-x-0 w-full max-h-screen bg-white rounded-t-md">
+                    <div class="w-full">
+                        <div class="px-6 pb-4 flex justify-between items-center w-full">
+                            <span class="tracking-wider">Modal Title</span>
+                            <button @click="showModal = false" class="focus:outline-none p-1  opacity-50 hover:opacity-90 rounded-md hover:bg-gray-100 hover:text-red-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                        </div>
+                        <button class="px-6 py-3 hover:bg-red-300 hover:bg-opacity-20 w-full flex items-center space-x-3">
+                            <svg class="w-6 h-6 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            <span class="text-sm tracking-wider">Edit</span>
+                        </button>
+                        <button class="px-6 py-3 hover:bg-red-300 hover:bg-opacity-20 w-full flex items-center space-x-3">
+                            <svg class="w-6 h-6 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            <span class="text-sm tracking-wider">Delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </teleport>
+
+        
     </div>
 </template>
 
@@ -90,6 +137,7 @@
 // import TableItem from './TableItem.vue'
 import TablePagination from './TablePagination.vue'
 import TableTopbar from './TableTopbar.vue'
+// import TableAction from './TableAction.vue'
 
 import axios from 'axios'
 
@@ -98,6 +146,7 @@ export default {
     components: { 
         TableTopbar,
         TablePagination,
+        // TableAction,
         // TableItem 
     },
     props: {
@@ -116,6 +165,9 @@ export default {
         },
         requestURL: {
             default: null
+        },
+        actionType: {
+            default: 'button'
         },
         requestParams: {
             default: null
@@ -147,7 +199,8 @@ export default {
             internalBorderStyle: 'horizontal',
             headings: this.tableHeadings(),
             checkedAll: false,
-            checked: []
+            checked: [],
+            showModal: false,
         }
     },
     mounted() {
@@ -227,9 +280,11 @@ export default {
                     renderAsSlot: false,
                     icon: null,
                     hiddenWhen: el.hideBreadpoint !== undefined ? `${el.hideBreadpoint}:table-cell hidden` : '',
-                    sortIcon: `<svg class="w-5 h-5 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>`,
-                    sortAscIcon: `<svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>`,
-                    sortDescIcon: `<svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>`,
+                    sortIcon: `<svg class="w-4 h-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>`,
+                    sortAscIcon: `<svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>`,
+                    sortDescIcon: `<svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`,
+                    // sortAscIcon: `<svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>`,
+                    // sortDescIcon: `<svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>`,
                     ...fieldValues,
                 }
             })

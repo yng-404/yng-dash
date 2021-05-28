@@ -1,12 +1,12 @@
 <template>
-    <div class="relative lg:p-6 p-4">
+    <div class="lg:p-6 p-4">
         <yng-table 
             :fields="fields"
             :localData="mockData"
+            requestURL="http://127.0.0.1:8000/api/products"
             uniqueIdentifier="productId"
             @sortTable="sortTable($event)"
         >
-            <!-- requestURL="http://127.0.0.1:8000/api/products" -->
             <template v-slot:productItemsSlot="{ dataItem }">
                 {{ dataItem[0].catalog.title }}
             </template>
@@ -15,6 +15,9 @@
                 <span v-else>No</span>
             </template>
         </yng-table>
+
+        
+        
     </div>
 </template>
 

@@ -7,8 +7,8 @@
                 :disabled="page.active || !page.url || loading"
                 :class="{ 
                     'bg-gray-300' : page.active,
-                    'hover:bg-gray-400' : page.url && page.label !== '...',
-                    'cursor-default' : !page.url || page.label === '...'
+                    'hover:bg-gray-400' : page.url && page.label !== '...' && !loading,
+                    'cursor-default' : !page.url || page.label === '...' || loading
                 }"
                 class="px-3 py-1 focus:outline-none">
                 <span v-html="page.label" class=" whitespace-nowrap"></span>

@@ -30,15 +30,9 @@ export default {
     components: {
         YngTable
     },
-    mounted() {
-        this.fetchDataFromAPI()
-    },
     data() {
         return {
-            URL: "http://127.0.0.1:8000/api/products?page=1",
             mockData,
-            // month,
-            dataFromAPI: null,
             fields: [
                 {
                     title: 'Product',

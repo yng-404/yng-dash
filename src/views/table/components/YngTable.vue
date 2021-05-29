@@ -142,6 +142,9 @@ import YngModal from '@/components/base/YngModal.vue'
 
 import axios from 'axios'
 
+
+import { mapState } from 'vuex'
+
 export default {
     name: 'YngTable',
     components: { 
@@ -196,7 +199,7 @@ export default {
         return {
             dataFromAPI: null,
             loading: false,
-            internalBorderStyle: 'horizontal',
+            internalBorderStyle: 'vertical',
             headings: this.tableHeadings(),
             checkedAll: false,
             checked: [],
@@ -217,6 +220,7 @@ export default {
         }
     },
     computed: {
+        ...mapState(['tableDefaultConfig']),
         filters() {
             const filterable = this.headings.filter(el => el.filterable).map(item => item.name)
             const filter = this.dataTable.data.map(el => el[filterable[0]])
@@ -245,7 +249,7 @@ export default {
         },
         checkedIn() {
             return this.dataTable.data.map(el => el[this.uniqueIdentifier])
-        }
+        },
     },
     methods: {
         fetchDataFromAPI(URL) {
@@ -287,13 +291,12 @@ export default {
                     sortAsc: true,
                     renderAsSlot: false,
                     filterable: false,
+                    searchable: false,
                     icon: null,
-                    hiddenWhen: el.hideBreadpoint !== undefined ? `${el.hideBreadpoint}:table-cell hidden` : '',
                     sortIcon: `<svg class="w-4 h-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>`,
                     sortAscIcon: `<svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>`,
                     sortDescIcon: `<svg class="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`,
-                    // sortAscIcon: `<svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>`,
-                    // sortDescIcon: `<svg class="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>`,
+                    hiddenWhen: el.hideBreadpoint !== undefined ? `${el.hideBreadpoint}:table-cell hidden` : '',
                     ...fieldValues,
                 }
             })

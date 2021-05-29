@@ -10,9 +10,10 @@
                 v-if="menu.children !== undefined" 
                 @click="isOpen = !isOpen" 
                 :isOpen="isOpen"
+                class="lg:inline hidden"
             />                        
         </div>
-        <ul v-if="menu.children !== undefined && isOpen">
+        <ul v-if="menu.children !== undefined && isOpen" class="lg:block hidden">
             <li v-for="child in menu.children" :key="child.name">
                 <router-link :to="{ name: child.route}" 
                     :class="{ 'bg-red-300 bg-opacity-10' : $route.name === child.route }"

@@ -1,5 +1,5 @@
 <template>
-    <aside :class="{ 'w-20 border-r' : isOpen }" class="lg:flex hidden flex-col justify-between items-center">
+    <aside :class="{ 'w-20 lg:border-r' : isOpen }" class="lg:flex hidden flex-col justify-between items-center">
         <nav :class="{ 'lg:flex ' : isOpen }"  class="hidden p-4 flex-col items-center">
             <ul class="space-y-5">
                 <li class="">

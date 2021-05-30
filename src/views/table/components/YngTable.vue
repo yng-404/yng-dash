@@ -62,7 +62,9 @@
                         :class="[
                             { 'bg-gray-50 animate-pulse' : loading },
                             innerBorderX, index % 2 === 0? 'bg-gray-50 bg-opacity-50' : 'bg-white bg-opacity-50'
-                        ]">
+                        ]"
+                        class="hover:bg-gray-100"
+                        >
                         <td v-if="uniqueIdentifier" :class="innerBorderY" class="text-center w-12">
                             <input 
                                 type="checkbox" 
@@ -117,7 +119,7 @@
         />
 
         <!-- ACTION MODAL -->
-        <teleport  to="#modals">
+        <teleport to="#modals">
             <yng-modal :show="show.actionModal" @close="show.actionModal = false" class="md:hidden">
                 <template #title>Action</template>
                 <button class="px-6 py-3 hover:bg-red-300 hover:bg-opacity-20 w-full flex items-center space-x-3">

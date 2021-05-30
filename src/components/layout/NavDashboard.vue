@@ -1,7 +1,7 @@
 <template>
     <nav 
         :class="isMenuOpen? 'absolute' : 'lg:block hidden'"
-        class="xl:w-72 lg:w-64 w-14 border-r space-y-4 sticky top-0 h-full">
+        class="xl:w-72 lg:w-64 w-14 border-r space-y-4 sticky top-0 h-full z-50">
         <button 
             @click="$emit('toggleMenu')"
             class="lg:hidden px-4 py-3 h-14 w-full flex justify-center items-center focus:outline-none">

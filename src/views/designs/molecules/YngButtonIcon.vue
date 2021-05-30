@@ -1,9 +1,13 @@
 <template>
-    <yng-button :btnColor="btnColor">
-        <slot></slot>
-        <template #icon-right>
-            <slot name="icon"></slot>
-        </template>
+    <yng-button 
+        :color="color" 
+        padding-x="px-2"
+        class="flex items-center">
+        <slot name="icon-left"></slot>
+        <span class="px-1.5">
+            <slot></slot>
+        </span>
+        <slot name="icon-right"></slot>
     </yng-button>
 </template>
 
@@ -14,7 +18,7 @@ import YngButton from '../atoms/YngButton'
 
 export default {
     props: {
-        btnColor: {
+        color: {
             default: 'primary'
         }
     },

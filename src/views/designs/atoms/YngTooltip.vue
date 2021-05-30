@@ -1,11 +1,13 @@
 <template>
-    <span class="rounded-md bg-gray-700 text-sm tracking-wider px-2 pt-px pb-0.5 text-gray-100 relative">
-        <slot></slot>
-        <span 
-            :class="arrowClass" 
-            class="absolute" 
-            :style="tooltipStyle"
-        ></span>
+    <span class="fixed">
+        <span class="rounded-md bg-gray-700 text-sm tracking-wider px-2 pt-px pb-0.5 text-gray-100 relative">
+            <slot></slot>
+            <span 
+                :class="arrowClass" 
+                class="absolute" 
+                :style="tooltipStyle"
+            ></span>
+        </span>
     </span>
 </template>
 
@@ -14,7 +16,7 @@ export default {
     props: {
         arrow: {
             default: 'down'
-        }
+        },
     },
     computed: {
         arrowClass() {
@@ -26,12 +28,9 @@ export default {
             }[this.arrow]
         },
         tooltipStyle() {
-            return {
-                up: 'left: calc(50% - 5px)',
-                down: 'left: calc(50% - 5px)',
-                right: 'top: calc(50% - 5px)',
-                left: 'top: calc(50% - 5px)',
-            }[this.arrow]
+            return this.arrow === 'up' || this.arrow === 'down'
+                ? 'left: calc(50% - 5px)'
+                : 'top: calc(50% - 5px)'
         }
     }
 }

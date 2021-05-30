@@ -1,17 +1,15 @@
 <template>
-    <li>
+    <li class="relative">
         <div :class="{ 'border-red-600 bg-red-300 bg-opacity-10' : $route.name === menu.route }"
             class="border-l-4 hover:border-red-600 border-transparent lg:px-4 px-3 justify-between flex lg:w-full w-14 items-center hover:bg-red-300 hover:bg-opacity-20">
-            <router-link :to="{ name: menu.route}" class="flex items-center lg:space-x-3 py-3">
-                <span v-html="menu.icon"></span>
-                <span class="lg:inline-flex hidden">{{ menu.name }}</span>
-            </router-link>
-            <yng-toggle
-                v-if="menu.children !== undefined" 
-                @click="isOpen = !isOpen" 
-                :isOpen="isOpen"
-                class="lg:inline hidden"
-            />                        
+            <nav-dashboard-subitem  :menu="menu">
+                <yng-toggle
+                    v-if="menu.children !== undefined" 
+                    @click="isOpen = !isOpen" 
+                    :isOpen="isOpen"
+                    class="lg:inline hidden transition-all ease-in duration-500 delay-200"
+                />
+            </nav-dashboard-subitem>
         </div>
         <ul v-if="menu.children !== undefined && isOpen" class="lg:block hidden">
             <li v-for="child in menu.children" :key="child.name">
@@ -29,9 +27,11 @@
 <script>
 
 import YngToggle from '../base/YngToggle.vue'
+import NavDashboardSubitem from './NavDashboardSubitem.vue'
 
 export default {
     components: { 
+        NavDashboardSubitem,
         YngToggle 
     },
     props: {

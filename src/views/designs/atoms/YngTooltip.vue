@@ -1,6 +1,6 @@
 <template>
     <span class="fixed">
-        <span class="rounded-md bg-gray-700 text-sm tracking-wider px-2 pt-px pb-0.5 text-gray-100 relative">
+        <span :class="defaultSize" class="rounded-md bg-gray-700 tracking-wider text-gray-100 relative">
             <slot></slot>
             <span 
                 :class="arrowClass" 
@@ -12,11 +12,18 @@
 </template>
 
 <script>
+
+import { tooltipSize } from './yng-sizes'
+
+
 export default {
     props: {
         arrow: {
             default: 'down'
         },
+        size: {
+            default: 'base'
+        }
     },
     computed: {
         arrowClass() {
@@ -31,6 +38,9 @@ export default {
             return this.arrow === 'up' || this.arrow === 'down'
                 ? 'left: calc(50% - 5px)'
                 : 'top: calc(50% - 5px)'
+        },
+        defaultSize() {
+            return tooltipSize[this.size]
         }
     }
 }

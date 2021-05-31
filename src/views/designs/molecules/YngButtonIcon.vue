@@ -1,10 +1,9 @@
 <template>
     <yng-button 
         :color="color" 
-        padding-x="px-2"
         class="flex items-center">
         <slot name="icon-left"></slot>
-        <span class="px-1">
+        <span :class="padding">
             <slot></slot>
         </span>
         <slot name="icon-right"></slot>
@@ -25,5 +24,20 @@ export default {
     components: { 
         YngButton 
     },
+    computed: {
+        padding() {
+            if (this.$slots['icon-left'] && this.$slots['icon-right']) {
+                return 'px-2'
+            } else {
+                if (this.$slots['icon-right']) {
+                    return 'pr-2'
+                } else if(this.$slots['icon-left']) {
+                    return 'pl-2'
+                } else {
+                    return ''
+                }
+            }
+        }
+    }
 }
 </script>

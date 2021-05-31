@@ -1,14 +1,16 @@
 <template>
     <button 
         :type="type"
-        :class="[colorClass, paddingX, paddingY]"
-        class="bg-gradient-to-tr rounded-md focus:outline-none text-2xs tracking-widest-2 font-medium uppercase"
+        :class="[defaultClass, colorClass, paddingX, paddingY]"
+        class="bg-gradient-to-tr rounded-md focus:outline-none tracking-widest-2 font-medium uppercase"
         >
         <slot>Primary</slot>
     </button>
 </template>
 
 <script>
+
+import { buttonSize } from './yng-sizes'
 
 export default {
     props: {
@@ -21,11 +23,14 @@ export default {
         borderStyle: {
             default: 'none'
         },
-        paddingX: {
-            default: 'px-3'
-        },
-        paddingY: {
-            default: 'py-1.5'
+        // paddingX: {
+        //     default: 'px-3'
+        // },
+        // paddingY: {
+        //     default: 'py-1.5'
+        // },
+        size: {
+            default: 'base'
         }
     },
     data() {
@@ -49,6 +54,9 @@ export default {
         },
         colorClass() {
             return this.colors.find(el => el.label === this.defaultColor).color
+        },
+        defaultClass() {
+            return buttonSize[this.size]
         }
     }
 }

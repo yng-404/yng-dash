@@ -1,13 +1,18 @@
 <template>
     <blockquote
         :class="[borderClass, colorClass]"
-        class="px-4 py-2 rounded-md text-sm tracking-wider w-full border"
+        class="px-4 py-2 rounded-md border-b- text-sm tracking-wider w-full border"
     >
         <slot></slot>
     </blockquote>
 </template>
 
 <script>
+
+
+import { blockQuoteSize } from './yng-sizes'
+
+
 export default {
     props: {
         borderPosition: {
@@ -15,6 +20,9 @@ export default {
         },
         color: {
             default: 'success'
+        },
+        size: {
+            default: 'base'
         }
     },
     data() {
@@ -40,12 +48,7 @@ export default {
             return this.colors.find(el => el.label === this.defaultColor).color
         },
         borderClass() {
-            return {
-                top: 'border-t-8',
-                bottom: 'border-b-8',
-                left: 'border-l-8',
-                right: 'border-r-8'
-            }[this.borderPosition]
+            return blockQuoteSize[this.size][this.borderPosition]
         }
     }
 }

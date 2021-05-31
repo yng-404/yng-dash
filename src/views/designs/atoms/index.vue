@@ -60,21 +60,6 @@
                 </template>
             </div>
 
-            <div class="gap-4 grid grid-cols-2 pt-8">
-                <template v-for="i in cardsXY" :key="i">
-                    <yng-card 
-                        :imagePosition="i" 
-                        class="border rounded-md"
-                    >
-                        {{ i }}
-                        <template #a>
-                            asdfdsf
-                        </template>
-                    </yng-card>
-                </template>
-            </div>
-
-
             <div class="gap-4 grid lg:grid-cols-4 md:grid-cols-2 pt-8">
                 <template v-for="i in blockQuotes" :key="i.type">
                     <yng-block-quote :color="i.type" :borderPosition="i.border">
@@ -120,13 +105,13 @@ export default {
                 { type: 'block Quote',  done: true },
                 { type: 'Cards', done: true },
                 { type: 'Inputs', done: true },
+                { type: 'Sizes',  done: true },
                 { type: 'Typography', done: false }, 
                 { type: 'Icons', done: false }, 
                 { type: 'Colors', done: false }, 
                 { type: 'Images', done: false }, 
                 { type: 'Tables',  done: false },
-                { type: 'Tab Item',  done: false },
-                { type: 'Scale',  done: false },
+                { type: 'Tab Items',  done: false },
                 { type: 'Animations',  done: false },
             ],
             buttons: [ 'primary', 'success', 'info', 'danger', 'warning', 'dark', 'secondary', 'disabled', 'light', ],
@@ -142,7 +127,7 @@ export default {
                 { type: 'plus', show: false, },
             ],
             cards: [ 'top', 'bottom', 'left', 'right', ],
-            cardsXY: [ 'middle-y', 'middle-x'  ]
+            typography: [ 'main heading (h1)', 'heading (h2)', 'subheading', 'subtitle', 'title', 'caption', 'content', 'subcontent', 'link' ]
         }
     },
     methods: {

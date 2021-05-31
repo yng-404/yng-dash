@@ -14,8 +14,15 @@ module.exports = {
                 'widest-2': '0.2rem'           
             },
             fontSize: {
-                '2xs': '.7rem'
-            }
+                '2xs': '.7rem',
+                '3xs': '.65rem'
+            },
+            borderWidth: {
+               '6': '6px',
+               '10': '10px',
+               '12': '12px',
+               '14': '14px',
+              }
         },
     },
     variants: {

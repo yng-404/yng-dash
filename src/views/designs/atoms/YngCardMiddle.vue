@@ -2,15 +2,16 @@
     <div 
         :class="imgPosition"
         class="flex overflow-hidden">
+        <div v-if="imagePosition === 'middle-x' || imagePosition === 'middle-y'"  class="p-4 w-full">
+            <slot name=""></slot>
+        </div>
         <div 
             :class="[imgClass, imgWidth]"
             class="relative flex-shrink-0 bg-gray-50" :style="imgHeight">
-            <img v-if="image" :src="image" alt="" class="absolute h-full w-full object-fill opacity-10" />
+            <img v-if="image" src="@/assets/svg/image.svg" alt="" class="absolute h-full w-full object-fill opacity-10" />
             <img v-else src="@/assets/svg/image.svg" alt="" class="absolute h-full w-full object-fill p-8 opacity-10" />
         </div>
-        <div 
-            :style="contentHeight"
-            class="p-4 order-2 w-full">
+        <div class="p-4 order-2 w-full">
             <slot></slot>
         </div>
     </div>
@@ -26,8 +27,8 @@ export default {
         image: {
             default: null
         },
-        imageAspectRatio: {
-            default: '1:3'
+        ratio: {
+            default: '1:2'
         },
         imagePosition: {
             default: 'left'
@@ -36,6 +37,8 @@ export default {
     computed: {
         imgPosition() {
             return {
+                'middle-y': 'flex-col divide-y',
+                'middle-x': 'divide-x',
                 top: 'flex-col divide-y',
                 bottom: 'flex-col',
                 left: 'divide-x',
@@ -44,6 +47,8 @@ export default {
         },
         imgClass() {
             return {
+                'middle-x': 'border-r order-1',
+                'middle-y': '',
                 top: 'order-1',
                 bottom: 'order-3 border-t',
                 left: 'order-1',
@@ -51,35 +56,18 @@ export default {
             }[this.imagePosition]
         },
         imgWidth() {
-            const ratio = this.imageAspectRatio.split(':')
+            const ratio = this.ratio.split(':')
             const total = parseInt(ratio[0]) + parseInt(ratio[1]) 
-            return this.imagePosition === 'left' || this.imagePosition === 'right'
+            return this.imagePosition === 'left' || this.imagePosition === 'right' || this.imagePosition === 'middle-x'
                 ? `w-${parseInt(ratio[0])}/${total}` 
                 : 'w-full'
         },
         imgHeight() {
-            const ratio = this.imageAspectRatio.split(':')
+            const ratio = this.ratio.split(':')
             const total = parseInt(ratio[0]) + parseInt(ratio[1]) 
-
-            let pb = ''
-
-            if(parseInt(ratio[0]) > parseInt(ratio[1])) {
-                pb = 100 + ( parseInt(ratio[1]) / total ) * 100
-            } else {
-                pb = ( parseInt(ratio[0]) / total ) * 100
-            }
-            return `padding-bottom: ${pb}%`
+            const height = ( parseInt(ratio[0]) / total ) * 100
+            return `padding-bottom: ${height}%`
         },
-        contentHeight() {
-            if(this.imagePosition === 'left' || this.imagePosition === 'right') {
-                return ''
-            } else {
-                const ratio = this.imageAspectRatio.split(':')
-                const total = parseInt(ratio[0]) + parseInt(ratio[1]) 
-                const h = 100 - ( parseInt(ratio[0]) / total ) * 100
-                return `height: ${h}%`
-            }
-        }
         
     }
 }

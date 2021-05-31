@@ -1,16 +1,22 @@
 <template>
     <span 
-        :class="colorClass"
-        class="inline-flex bg-gradient-to-tr uppercase border px-1.5 py-px text-xs tracking-widest font-mono rounded-md">
+        :class="[defaultSize, colorClass]"
+        class="inline-flex bg-gradient-to-tr uppercase border tracking-widest font-mono rounded-md">
         <slot>Badge</slot>
     </span>
 </template>
 
 <script>
+
+import { badgeSize } from './yng-sizes'
+
 export default {
     props: {
         color: {
             default: 'danger'
+        },
+        size: {
+            default: 'base'
         }
     },
     data() {
@@ -35,6 +41,9 @@ export default {
         colorClass() {
             return this.colors.find(el => el.label === this.defaultColor).color
         },
+        defaultSize() {
+            return badgeSize[this.size]
+        }
     }
 }
 </script>

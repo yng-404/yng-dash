@@ -4,7 +4,7 @@
         padding-x="px-2"
         class="flex items-center">
         <slot name="icon-left"></slot>
-        <span class="px-1.5">
+        <span class="px-1">
             <slot></slot>
         </span>
         <slot name="icon-right"></slot>

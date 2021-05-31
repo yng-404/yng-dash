@@ -1,7 +1,7 @@
 <template>
     <button 
         :type="type"
-        :class="[borderClass, colorClass, paddingX, paddingY]"
+        :class="[colorClass, paddingX, paddingY]"
         class="bg-gradient-to-tr rounded-md focus:outline-none text-2xs tracking-widest-2 font-medium uppercase"
         >
         <slot>Primary</slot>
@@ -49,12 +49,6 @@ export default {
         },
         colorClass() {
             return this.colors.find(el => el.label === this.defaultColor).color
-        },
-        borderClass() {
-            return {
-                none: '',
-                thick: 'border-b-4'
-            }[this.borderStyle]
         }
     }
 }

@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             templates: [
-                'Header', 'Footer', 'Sidebar', 'Main Page'
+                'Header', 'Footer', 'Sidebar', 'Main Page', 'Login Form', 'Registration Form'
             ]
         }
     }

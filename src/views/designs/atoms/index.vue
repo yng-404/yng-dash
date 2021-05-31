@@ -13,7 +13,7 @@
             </li>
         </ul>
 
-        <div class="divide-y divide-gray-100 space-y-8 pt-8">
+        <div class="divide-y divide-gray-100 space-y-8 pt-8 pb-16">
 
             <div class="gap-4 flex flex-wrap">
                 <template v-for="i in toggles" :key="i">
@@ -50,12 +50,39 @@
             </div>
 
             <div class="gap-4 grid lg:grid-cols-4 md:grid-cols-2 pt-8">
-                <template v-for="i in blockQuotes" :key="i">
+                <template v-for="i in cards" :key="i">
+                    <yng-card 
+                        :imagePosition="i" 
+                        class="border rounded-md"
+                    >
+                        {{ i }}
+                    </yng-card>
+                </template>
+            </div>
+
+            <div class="gap-4 grid grid-cols-2 pt-8">
+                <template v-for="i in cardsXY" :key="i">
+                    <yng-card 
+                        :imagePosition="i" 
+                        class="border rounded-md"
+                    >
+                        {{ i }}
+                        <template #a>
+                            asdfdsf
+                        </template>
+                    </yng-card>
+                </template>
+            </div>
+
+
+            <div class="gap-4 grid lg:grid-cols-4 md:grid-cols-2 pt-8">
+                <template v-for="i in blockQuotes" :key="i.type">
                     <yng-block-quote :color="i.type" :borderPosition="i.border">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam voluptatum voluptate delectus laboriosam? Officia debitis, corrupti, cum consequatur ut deleniti voluptas ab voluptatibus ullam ea illo tempora.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam voluptariosam? Officia debitis, corrupti, cum consequatur ut deleniti voluptas ab voluptatibus ullam ea illo tempora.
                     </yng-block-quote>
                 </template>
             </div>
+
         </div>
 
     </div>
@@ -69,6 +96,7 @@ import YngButtonIcon from '../molecules/YngButtonIcon.vue'
 import YngBadge from './YngBadge.vue'
 import YngBlockQuote from './YngBlockQuote.vue'
 import YngButton from './YngButton.vue'
+import YngCard from './YngCard.vue'
 import YngToggle from './YngToggle.vue'
 import YngTooltip from './YngTooltip.vue'
 
@@ -79,7 +107,8 @@ export default {
         YngToggle,
         YngBadge,
         YngButtonIcon,
-        YngBlockQuote 
+        YngBlockQuote,
+        YngCard 
     },
     data() {
         return {
@@ -89,7 +118,8 @@ export default {
                 { type: 'Badges', done: true }, 
                 { type: 'Tooltips', done: true }, 
                 { type: 'block Quote',  done: true },
-                { type: 'Form Elements', done: false },
+                { type: 'Cards', done: true },
+                { type: 'Inputs', done: true },
                 { type: 'Typography', done: false }, 
                 { type: 'Icons', done: false }, 
                 { type: 'Colors', done: false }, 
@@ -110,7 +140,9 @@ export default {
             toggles: [
                 { type: 'arrow', show: false, },
                 { type: 'plus', show: false, },
-            ]
+            ],
+            cards: [ 'top', 'bottom', 'left', 'right', ],
+            cardsXY: [ 'middle-y', 'middle-x'  ]
         }
     },
     methods: {

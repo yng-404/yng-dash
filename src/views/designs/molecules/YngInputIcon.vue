@@ -1,12 +1,12 @@
 <template>
-    <div class="flex items-center relative w-1/2">
+    <div class="flex items-center relative">
         <yng-input 
             :type="type"
             :padding="padding"
             :id="id"
             class="w-full"
         />
-        <span :class="iconClass" class="absolute opacity-30">
+        <span :class="iconClass" class="absolute opacity-20 pointer-events-none">
             <slot></slot>
         </span>
     </div>

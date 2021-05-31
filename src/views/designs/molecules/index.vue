@@ -15,7 +15,7 @@
 
         <div class="divide-y divide-gray-100 space-y-8 pt-8">
 
-            <div class="gap-4 flex flex-wrap">
+            <div class="gap-4 flex flex-wrap pt-8">
                 <template v-for="i in buttonGroups" :key="i.label">
                     <yng-button-icon 
                         @click="showCode(i.label)" 

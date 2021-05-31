@@ -15,7 +15,6 @@
 
 import { tooltipSize } from './yng-sizes'
 
-
 export default {
     props: {
         arrow: {

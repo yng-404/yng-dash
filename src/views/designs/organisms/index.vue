@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             organisms: [
-                'Hero', 'Call to Action', 'Pricing', 'Menus', 'Navbars', 'Modal', 'Form Groups','Form with Validation', 'Pagination', 'Table'
+                'Hero', 'Call to Actions', 'Pricing', 'Menus', 'Navbars', 'Modals', 'Notification Bars', 'Form Groups','Form with Validations', 'Paginations', 'Tables'
             ]
         }
     }

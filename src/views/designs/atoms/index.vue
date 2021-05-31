@@ -23,6 +23,7 @@
                         @click="toggle(i.type)"
                     />
                 </template>
+                <yng-button-exit />
             </div>
 
             <div class="gap-4 flex flex-wrap pt-8">
@@ -49,6 +50,21 @@
                 </template>
             </div>
 
+            <div class="gap-4 grid lg:grid-cols-3 pt-8">
+                <yng-bar />
+                <yng-bar />
+                <yng-bar />
+            </div>
+
+
+            <div class="gap-4 grid lg:grid-cols-4 md:grid-cols-2 pt-8">
+                <template v-for="i in blockQuotes" :key="i.type">
+                    <yng-block-quote :color="i.type" :borderPosition="i.border">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam voluptariosam? Officia debitis, corrupti, cum consequatur ut deleniti voluptas ab voluptatibus ullam ea illo tempora.
+                    </yng-block-quote>
+                </template>
+            </div>
+
             <div class="gap-4 grid lg:grid-cols-4 md:grid-cols-2 pt-8">
                 <template v-for="i in cards" :key="i">
                     <yng-card 
@@ -61,11 +77,8 @@
             </div>
 
             <div class="gap-4 grid lg:grid-cols-4 md:grid-cols-2 pt-8">
-                <template v-for="i in blockQuotes" :key="i.type">
-                    <yng-block-quote :color="i.type" :borderPosition="i.border">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam voluptariosam? Officia debitis, corrupti, cum consequatur ut deleniti voluptas ab voluptatibus ullam ea illo tempora.
-                    </yng-block-quote>
-                </template>
+                <yng-card-basic class="border rounded-md">
+                </yng-card-basic>
             </div>
 
         </div>
@@ -76,12 +89,14 @@
 
 <script>
 
-
 import YngButtonIcon from '../molecules/YngButtonIcon.vue'
 import YngBadge from './YngBadge.vue'
+import YngBar from './YngBar.vue'
 import YngBlockQuote from './YngBlockQuote.vue'
 import YngButton from './YngButton.vue'
+import YngButtonExit from './YngButtonExit.vue'
 import YngCard from './YngCard.vue'
+import YngCardBasic from './YngCardBasic.vue'
 import YngToggle from './YngToggle.vue'
 import YngTooltip from './YngTooltip.vue'
 
@@ -93,7 +108,10 @@ export default {
         YngBadge,
         YngButtonIcon,
         YngBlockQuote,
-        YngCard 
+        YngCard,
+        YngCardBasic,
+        YngButtonExit,
+        YngBar 
     },
     data() {
         return {
@@ -106,6 +124,7 @@ export default {
                 { type: 'Cards', done: true },
                 { type: 'Inputs', done: true },
                 { type: 'Sizes',  done: true },
+                { type: 'Bars',  done: true },
                 { type: 'Typography', done: false }, 
                 { type: 'Icons', done: false }, 
                 { type: 'Colors', done: false }, 

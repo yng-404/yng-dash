@@ -3,22 +3,36 @@
         <h3 class="text-xl">Molecules</h3>
 
         <ul class="gap-4 flex flex-wrap items-center">
-            <li v-for="molecule in molecules" :key="molecule">
-                {{ molecule }}
+            <li v-for="molecule in molecules" :key="molecule.type">
+                <yng-button-icon :color="molecule.done ? 'success' : 'disabled'">
+                    <template #icon-left>
+                        <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </template>
+                    {{ molecule.type }}
+                </yng-button-icon>
             </li>
         </ul>
 
-        <div class="gap-4 flex flex-wrap" ref="aaaa">
-            <div v-for="i in buttonGroups" :key="i.label" class="flex relative">
-                <yng-button-icon 
-                    @click="showCode(i.label)" 
-                    :color="i.color"
-                    >
-                    {{ i.label }}
-                    <template #icon-right>
-                        <span v-html="i.icon" class="opacity-60"></span>
-                    </template>
-                </yng-button-icon>
+        <div class="divide-y divide-gray-100 space-y-8 pt-8">
+
+            <div class="gap-4 flex flex-wrap" ref="aaaa">
+                <div v-for="i in buttonGroups" :key="i.label" class="flex relative">
+                    <yng-button-icon 
+                        @click="showCode(i.label)" 
+                        :color="i.color"
+                        >
+                        {{ i.label }}
+                        <template #icon-right>
+                            <span v-html="i.icon" class="opacity-60"></span>
+                        </template>
+                    </yng-button-icon>
+                </div>
+            </div>
+
+            <div class="pt-8">
+                <yng-input-icon>
+                    <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>                    
+                </yng-input-icon>
             </div>
         </div>
 
@@ -29,15 +43,22 @@
 <script>
 
 import YngButtonIcon from './YngButtonIcon.vue'
+import YngInputIcon from './YngInputIcon.vue'
 export default {
     components: { 
-        YngButtonIcon 
+        YngButtonIcon,
+        YngInputIcon 
     },
     data() {
         return {
             show: true,
             molecules: [
-                'Cards', 'Notification', 'Dropdown Menu', 'Input Group', 'Menu Item'
+                { done: true, type: 'Button Icon',  },
+                { done: false, type: 'Cards',  },
+                { done: false, type: 'Notification',  },
+                { done: false, type: 'Dropdown Menu',  },
+                { done: false, type: 'Input Group',  },
+                { done: false, type: 'Menu Item' }
             ],
             buttonGroups: [ 
                 { 

@@ -18,6 +18,7 @@ export default {
             colors: [
                 { label: 'primary', color: 'from-indigo-50 to-blue-50 border-blue-200 text-blue-500' },
                 { label: 'secondary', color: 'from-gray-300 to-gray-200 border-gray-400 text-gray-500' },
+                { label: 'disabled', color: 'from-gray-300 to-gray-200 border-gray-300 text-gray-50' },
                 { label: 'success', color: 'from-green-50 to-teal-50 border-teal-200 text-teal-500'  },
                 { label: 'danger', color: 'from-red-50 to-pink-50 border-red-200 text-red-500' },
                 { label: 'warning', color: 'from-orange-50 to-yellow-50 border-orange-200 text-orange-500'},

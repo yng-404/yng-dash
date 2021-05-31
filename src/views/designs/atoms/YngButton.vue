@@ -39,6 +39,7 @@ export default {
                 { label: 'info', color: 'from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-white', },
                 { label: 'light', color: 'from-bg-gray-50 to-bg-white hover:bg-gray-100  border text-gray-600', },
                 { label: 'dark', color: 'from-gray-800 to-gray-500 hover:from-gray-900 hover:to-gray-700 text-white'},
+                { label: 'disabled', color: 'from-gray-300 to-gray-200 text-gray-50 cursor-not-allowed', },
             ]
         }
     },

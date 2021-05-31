@@ -3,11 +3,10 @@
         <h3 class="text-xl">Atoms</h3>
         
         <ul class="gap-4 flex flex-wrap items-center">
-
             <li v-for="atom in atoms" :key="atom.type">
-                <yng-button-icon :color="atom.done ? 'success' : 'light'">
+                <yng-button-icon :color="atom.done ? 'success' : 'disabled'">
                     <template #icon-left>
-                        <svg class="w-4 h-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </template>
                     {{ atom.type }}
                 </yng-button-icon>
@@ -15,7 +14,18 @@
         </ul>
 
         <div class="divide-y divide-gray-100 space-y-8 pt-8">
+
             <div class="gap-4 flex flex-wrap">
+                <template v-for="i in toggles" :key="i">
+                    <yng-toggle 
+                        :toggleType="i.type"
+                        :isOpen="i.show"
+                        @click="toggle(i.type)"
+                    />
+                </template>
+            </div>
+
+            <div class="gap-4 flex flex-wrap pt-8">
                 <template v-for="i in buttons" :key="i">
                     <yng-button :color="i">
                         {{ i }}
@@ -39,16 +49,13 @@
                 </template>
             </div>
 
-            <div class="gap-4 flex flex-wrap pt-8">
-                <template v-for="i in toggles" :key="i">
-                    <yng-toggle 
-                        :toggleType="i.type"
-                        :isOpen="i.show"
-                        @click="toggle(i.type)"
-                    />
+            <div class="gap-4 grid lg:grid-cols-4 md:grid-cols-2 pt-8">
+                <template v-for="i in blockQuotes" :key="i">
+                    <yng-block-quote :color="i.type" :borderPosition="i.border">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam voluptatum voluptate delectus laboriosam? Officia debitis, corrupti, cum consequatur ut deleniti voluptas ab voluptatibus ullam ea illo tempora.
+                    </yng-block-quote>
                 </template>
             </div>
-
         </div>
 
     </div>
@@ -60,6 +67,7 @@
 
 import YngButtonIcon from '../molecules/YngButtonIcon.vue'
 import YngBadge from './YngBadge.vue'
+import YngBlockQuote from './YngBlockQuote.vue'
 import YngButton from './YngButton.vue'
 import YngToggle from './YngToggle.vue'
 import YngTooltip from './YngTooltip.vue'
@@ -70,24 +78,34 @@ export default {
         YngTooltip,
         YngToggle,
         YngBadge,
-        YngButtonIcon 
+        YngButtonIcon,
+        YngBlockQuote 
     },
     data() {
         return {
             atoms: [ 
-                { type: 'Typography', done: false }, 
+                { type: 'Toggles', done: true }, 
                 { type: 'Buttons', done: true }, 
-                { type: 'Form Elements', done: false },
-                { type: 'Icons', done: false }, 
-                { type: 'Colors', done: false }, 
                 { type: 'Badges', done: true }, 
                 { type: 'Tooltips', done: true }, 
-                { type: 'Toggles', done: true }, 
+                { type: 'block Quote',  done: true },
+                { type: 'Form Elements', done: false },
+                { type: 'Typography', done: false }, 
+                { type: 'Icons', done: false }, 
+                { type: 'Colors', done: false }, 
                 { type: 'Images', done: false }, 
                 { type: 'Tables',  done: false },
+                { type: 'Tab Item',  done: false },
                 { type: 'Scale',  done: false },
+                { type: 'Animations',  done: false },
             ],
-            buttons: [ 'primary', 'success', 'info', 'danger', 'warning', 'dark', 'secondary', 'light', ],
+            buttons: [ 'primary', 'success', 'info', 'danger', 'warning', 'dark', 'secondary', 'disabled', 'light', ],
+            blockQuotes: [ 
+                { border: 'left', type: 'success', }, 
+                { border: 'top', type: 'info', }, 
+                { border: 'bottom', type: 'danger', }, 
+                { border: 'right', type: 'warning', }, 
+            ],
             tooltips: [ 'up', 'down', 'left', 'right', ],
             toggles: [
                 { type: 'arrow', show: false, },

@@ -16,7 +16,7 @@
                 <router-link :to="{ name: child.route}" 
                     :class="{ 'bg-red-300 bg-opacity-10' : $route.name === child.route }"
                     class="lg:px-4 px-3 py-3 flex lg:w-full w-14 text-xs tracking-widest items-center hover:bg-red-200 hover:bg-opacity-10 lg:space-x-3">
-                    <span class="w-7 rounded-full h-7 bg-gray-300"></span>
+                    <span class="w-7 rounded-full h-7 bg-gray-200"></span>
                     <span class="lg:inline-flex hidden">{{ child.name }}</span>
                 </router-link>
             </li>

@@ -10,8 +10,8 @@
 
 <script>
 
-import { buttonSize } from './yng-sizes'
-import { buttonColor } from './yng-colors'
+import { buttonSize } from '../core/yng-sizes'
+import { buttonColor } from '../core/yng-colors'
 
 export default {
     props: {
@@ -26,14 +26,24 @@ export default {
         },
         size: {
             default: 'base'
+        },
+        customColor: {
+            default: null
+        },
+        customSize: {
+            default: null
         }
     },
     computed: {
         colorClass() {
-            return buttonColor[this.color] || buttonColor.primary
+            return this.customColor 
+                ? this.customColor
+                : buttonColor[this.color] || buttonColor.primary
         },
         defaultClass() {
-            return buttonSize[this.size] || buttonSize.base
+            return this.customSize 
+                ? this.customSize
+                : buttonSize[this.size] || buttonSize.base
         }
     }
 }

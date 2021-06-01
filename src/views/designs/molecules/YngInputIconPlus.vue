@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label v-if="label" :for="id" class="text-sm tracking-wider mb-2 inline-block">
+        <label v-if="label" class="text-sm tracking-wider mb-2 inline-block">
             {{ label }}
         </label>
         <div class="flex items-center relative">
@@ -14,8 +14,7 @@
             </span>
             <yng-input 
                 :type="type"
-                :id="id"
-                :padding="padding"
+                :customSize="padding"
                 :placeholder="placeholder"
                 :class="[{ 'border-red-300' : error, 'border-teal-300' : success }, borderColor]"
                 class="w-full"
@@ -59,9 +58,6 @@ export default {
         },
         type: {
             default: 'text'
-        },
-        id: {
-            default: 'input-with-icon'
         },
         borderColor: {
             default: null

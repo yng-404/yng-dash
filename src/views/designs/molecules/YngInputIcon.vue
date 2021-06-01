@@ -2,8 +2,7 @@
     <div class="flex items-center relative">
         <yng-input 
             :type="type"
-            :padding="padding"
-            :id="id"
+            :customSize="padding"
             class="w-full"
         />
         <span :class="iconClass" class="absolute opacity-20 pointer-events-none">
@@ -27,9 +26,6 @@ export default {
         },
         iconPosition: {
             default: 'left'
-        },
-        id: {
-            default: 'input-with-icon'
         }
     },
     computed: {

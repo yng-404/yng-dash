@@ -1,16 +1,50 @@
 <template>
     <input 
-        :class="padding"
-        class="rounded-md border text-sm tracking-wider placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-opacity-30 focus:border-blue-500 focus:ring-light-blue-400 bg-warm-gray-100 focus:bg-white"
+        :class="[defaultColor, defaulSize]"
+        :id="inputId"
+        class="rounded-md border tracking-wider placeholder-gray-400"
     />
 </template>
 
 <script>
+
+import { inputSize } from '../core/yng-sizes'
+import { inputColor } from '../core/yng-colors'
+
 export default {
     props: {
-        padding: {
-            default: 'px-3 py-1'
+        size: {
+            default: 'base'
         },
+        color: {
+            default: 'base'
+        },
+        customSize: {
+            default: null
+        },
+        customColor: {
+            default: null
+        }
     },
+    data() {
+        return {
+            inputId: null
+        }
+    },
+    mounted() {
+        this.inputId = this._uid
+    },
+    computed: {
+        defaultColor() {
+            return this.customColor
+                ? this.customColor
+                : inputColor[this.color] || inputColor.base
+        },
+        defaulSize() {
+            return this.customSize 
+                ? this.customSize 
+                : inputSize[this.size]
+        }
+    }
 }
 </script>

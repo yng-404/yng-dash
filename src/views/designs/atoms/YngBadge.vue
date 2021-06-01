@@ -8,9 +8,9 @@
 
 <script>
 
-import { badgeSize } from './yng-sizes'
-import { badgeColor } from './yng-colors'
 
+import { badgeSize } from '../core/yng-sizes'
+import { badgeColor } from '../core/yng-colors'
 
 export default {
     props: {
@@ -19,14 +19,24 @@ export default {
         },
         size: {
             default: 'base'
+        },
+        customColor: {
+            default: null
+        },
+        customSize: {
+            default: null
         }
     },
     computed: {
         colorClass() {
-            return badgeColor[this.color] || badgeColor.primary
+            return this.customColor 
+                ? this.customColor 
+                : badgeColor[this.color] || badgeColor.primary
         },
         defaultSize() {
-            return badgeSize[this.size] || badgeSize.base
+            return this.customSize 
+                ? this.customSize 
+                : badgeSize[this.size] || badgeSize.base
         }
     }
 }

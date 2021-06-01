@@ -32,6 +32,14 @@
                 </template>
             </div>
 
+            <div class="gap-4 grid lg:grid-cols-3 pt-8">
+                <template v-for="i in bars" :key="i">
+                    <yng-bar :color="i" />
+                </template>
+                <template v-for="i in bars" :key="i">
+                    <yng-bar :color="i" :inverted="true" />
+                </template>
+            </div>
 
             <div class="grid gap-4 lg:grid-cols-4 pt-8">
                 <yng-input-icon-plus label="Password" error="Invalid password!">
@@ -67,12 +75,14 @@
 
 <script>
 
+import YngBar from './YngBar.vue'
 import YngButtonIcon from './YngButtonIcon.vue'
 import YngInputIcon from './YngInputIcon.vue'
 import YngInputIconPlus from './YngInputIconPlus.vue'
 
 export default {
     components: { 
+        YngBar,
         YngButtonIcon,
         YngInputIcon,
         YngInputIconPlus,
@@ -145,7 +155,8 @@ export default {
                     label: 'ignore',
                     icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>` 
                 }, 
-            ]
+            ],
+            bars: [ 'primary', 'success', 'info', 'danger', 'warning', 'light', ],
         }
     },
     methods: {

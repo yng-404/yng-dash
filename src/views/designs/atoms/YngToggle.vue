@@ -17,7 +17,7 @@
 
 <script>
 
-import { toggleSize } from './yng-sizes'
+import { toggleSize } from '../core/yng-sizes'
 
 export default {
     props: {

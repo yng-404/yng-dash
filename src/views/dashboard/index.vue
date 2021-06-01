@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen w-full flex">
+    <div class="h-screen w-full flex ">
         <nav-external-link />
         <nav-dashboard 
             :isMenuOpen="isMenuOpen"

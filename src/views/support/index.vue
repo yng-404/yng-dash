@@ -1,9 +1,8 @@
-<template>
-    <div class="lg:p-6 p-4">Support</div>
-</template>
-
 <script>
+import { h } from 'vue'
 export default {
-    
+    setup() {
+        return() => h('div', { class: 'lg:p-6 p-4'}, 'Support')
+    }
 }
 </script>

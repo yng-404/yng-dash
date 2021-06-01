@@ -1,11 +1,13 @@
 <template>
     <span class="fixed">
-        <span :class="defaultSize" class="rounded-md bg-gray-700 tracking-wider text-gray-100 relative">
+        <span 
+            :class="defaultSize" 
+            class="rounded-md bg-gray-700 tracking-wider text-gray-100 relative">
             <slot></slot>
             <span 
                 :class="arrowClass" 
-                class="absolute" 
                 :style="tooltipStyle"
+                class="absolute" 
             ></span>
         </span>
     </span>
@@ -13,7 +15,7 @@
 
 <script>
 
-import { tooltipSize } from './yng-sizes'
+import { tooltipSize } from '../core/yng-sizes'
 
 export default {
     props: {
@@ -22,6 +24,9 @@ export default {
         },
         size: {
             default: 'base'
+        },
+        customSize: {
+            default: null
         }
     },
     computed: {
@@ -39,7 +44,9 @@ export default {
                 : 'top: calc(50% - 5px)'
         },
         defaultSize() {
-            return tooltipSize[this.size]
+            return this.customSize 
+                ? this.customSize 
+                : tooltipSize[this.size] || tooltipSize.base
         }
     }
 }

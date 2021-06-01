@@ -10,8 +10,8 @@
 <script>
 
 
-import { blockQuoteSize } from './yng-sizes'
-import { blockQuoteColor } from './yng-colors'
+import { blockQuoteSize } from '../core/yng-sizes'
+import { blockQuoteColor } from '../core/yng-colors'
 
 export default {
     props: {
@@ -23,14 +23,24 @@ export default {
         },
         size: {
             default: 'base'
+        },
+        customColor: {
+            default: null
+        },
+        customSize: {
+            default: null
         }
     },
     computed: {
         colorClass() {
-            return  blockQuoteColor[this.color]  || blockQuoteColor.primary
+            return  this.customColor 
+                ? this.customColor
+                : blockQuoteColor[this.color] || blockQuoteColor.primary
         },
         borderClass() {
-            return blockQuoteSize[this.size][this.borderPosition] || blockQuoteSize.base
+            return this.customSize 
+                ? this.customSize
+                : blockQuoteSize[this.size][this.borderPosition] || blockQuoteSize.base
         }
     }
 }

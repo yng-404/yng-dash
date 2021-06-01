@@ -50,10 +50,19 @@
                 </template>
             </div>
 
+
+            <div class="gap-4 flex flex-wrap pt-8">
+                <yng-menu-item>
+                    hahahah
+                </yng-menu-item>
+            </div>
             <div class="gap-4 grid lg:grid-cols-3 pt-8">
-                <yng-bar />
-                <yng-bar />
-                <yng-bar />
+                <template v-for="i in bars" :key="i">
+                    <yng-card-bar :color="i" />
+                </template>
+                <template v-for="i in bars" :key="i">
+                    <yng-card-bar :color="i" :inverted="true" />
+                </template>
             </div>
 
 
@@ -91,7 +100,7 @@
 
 import YngButtonIcon from '../molecules/YngButtonIcon.vue'
 import YngBadge from './YngBadge.vue'
-import YngBar from './YngBar.vue'
+import YngCardBar from './YngCardBar.vue'
 import YngBlockQuote from './YngBlockQuote.vue'
 import YngButton from './YngButton.vue'
 import YngButtonExit from './YngButtonExit.vue'
@@ -99,6 +108,7 @@ import YngCard from './YngCard.vue'
 import YngCardBasic from './YngCardBasic.vue'
 import YngToggle from './YngToggle.vue'
 import YngTooltip from './YngTooltip.vue'
+import YngMenuItem from './YngMenuItem.vue'
 
 export default {
     components: { 
@@ -111,7 +121,8 @@ export default {
         YngCard,
         YngCardBasic,
         YngButtonExit,
-        YngBar 
+        YngCardBar,
+        YngMenuItem 
     },
     data() {
         return {
@@ -134,6 +145,7 @@ export default {
                 { type: 'Animations',  done: false },
             ],
             buttons: [ 'primary', 'success', 'info', 'danger', 'warning', 'dark', 'secondary', 'disabled', 'light', ],
+            bars: [ 'primary', 'success', 'info', 'danger', 'warning', 'light', ],
             blockQuotes: [ 
                 { border: 'left', type: 'success', }, 
                 { border: 'top', type: 'info', }, 

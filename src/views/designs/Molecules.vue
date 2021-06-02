@@ -91,10 +91,10 @@
 
 <script>
 
-import YngBar from './YngBar.vue'
-import YngButtonIcon from './YngButtonIcon.vue'
-import YngInputIcon from './YngInputIcon.vue'
-import YngInputIconPlus from './YngInputIconPlus.vue'
+import YngBar from '@/components/core/molecules/YngBar.vue'
+import YngButtonIcon from '@/components/core/molecules/YngButtonIcon.vue'
+import YngInputIcon from '@/components/core/molecules/YngInputIcon.vue'
+import YngInputIconPlus from '@/components/core/molecules/YngInputIconPlus.vue'
 
 export default {
     components: { 

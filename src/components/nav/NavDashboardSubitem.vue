@@ -23,7 +23,7 @@
 
 <script>
 
-import YngTooltip from '@/views/designs/atoms/YngTooltip.vue'
+import YngTooltip from '@/components/core/atoms/YngTooltip.vue'
 
 export default {
     components: {

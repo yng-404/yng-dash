@@ -67,9 +67,9 @@ export default [
         children: [
             { name: 'Atoms', route: 'atoms' },   
             { name: 'Molecules', route: 'molecules' },   
-            { name: 'Organisms', route: 'organisms' },   
-            { name: 'Templates', route: 'templates' },   
-            { name: 'Pages', route: 'pages' },   
+            // { name: 'Organisms', route: 'organisms' },   
+            // { name: 'Templates', route: 'templates' },   
+            // { name: 'Pages', route: 'pages' },   
         ]
     },
 

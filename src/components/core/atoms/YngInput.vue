@@ -9,8 +9,8 @@
 
 <script>
 
-import { inputSize, inputSizeIcon } from '../core/yng-sizes'
-import { inputColor, inputColorFocus } from '../core/yng-colors'
+import { inputSize, inputSizeIcon } from '../refs/yng-sizes'
+import { inputColor, inputColorFocus } from '../refs/yng-colors'
 
 export default {
     props: {

@@ -10,8 +10,8 @@
 
 <script>
 
-import { barColor } from '../core/yng-colors'
-import { barSize } from '../core/yng-sizes'
+import { barColor } from '../refs/yng-colors'
+import { barSize } from '../refs/yng-sizes'
 
 export default {
     props: {

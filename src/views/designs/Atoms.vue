@@ -104,18 +104,18 @@
 
 <script>
 
-import YngButtonIcon from '../molecules/YngButtonIcon.vue'
-import YngBadge from './YngBadge.vue'
-import YngCardBar from './YngCardBar.vue'
-import YngBlockQuote from './YngBlockQuote.vue'
-import YngButton from './YngButton.vue'
-import YngButtonExit from './YngButtonExit.vue'
-import YngCard from './YngCard.vue'
-import YngCardBasic from './YngCardBasic.vue'
-import YngToggle from './YngToggle.vue'
-import YngTooltip from './YngTooltip.vue'
-import YngMenuItem from './YngMenuItem.vue'
-import YngInput from './YngInput.vue'
+import YngButtonIcon from '@/components/core/molecules/YngButtonIcon'
+import YngBadge from '@/components/core/atoms/YngBadge'
+import YngCardBar from '@/components/core/atoms/YngCardBar'
+import YngBlockQuote from '@/components/core/atoms/YngBlockQuote'
+import YngButton from '@/components/core/atoms/YngButton'
+import YngButtonExit from '@/components/core/atoms/YngButtonExit'
+import YngCard from '@/components/core/atoms/YngCard'
+import YngCardBasic from '@/components/core/atoms/YngCardBasic'
+import YngToggle from '@/components/core/atoms/YngToggle'
+import YngTooltip from '@/components/core/atoms/YngTooltip'
+import YngMenuItem from '@/components/core/atoms/YngMenuItem'
+import YngInput from '@/components/core/atoms/YngInput'
 
 export default {
     components: { 

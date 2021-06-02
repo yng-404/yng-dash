@@ -9,7 +9,7 @@
 
 <script>
 
-import { toggleSize } from '../core/yng-sizes'
+import { toggleSize } from '../refs/yng-sizes'
 
 export default {
     props: {

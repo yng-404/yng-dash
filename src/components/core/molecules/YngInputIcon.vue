@@ -2,7 +2,6 @@
     <div class="flex items-center relative">
         <yng-input 
             :type="type"
-            :class="padding"
             :disabled="disabled"
             :size="size"
             :color="color"

@@ -10,8 +10,8 @@
 <script>
 
 
-import { blockQuoteSize } from '../core/yng-sizes'
-import { blockQuoteColor } from '../core/yng-colors'
+import { blockQuoteSize } from '../refs/yng-sizes'
+import { blockQuoteColor } from '../refs/yng-colors'
 
 export default {
     props: {

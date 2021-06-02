@@ -15,7 +15,7 @@
 
 <script>
 
-import { tooltipSize } from '../core/yng-sizes'
+import { tooltipSize } from '../refs/yng-sizes'
 
 export default {
     props: {

@@ -5,12 +5,12 @@ const routes = [
     {
         path: '/',
         redirect: 'dashboard',
-        component: () => import(/* webpackChunkName: "main-dashboard" */ '../views/dashboard'),
+        component: () => import(/* webpackChunkName: "main-dashboard" */ '../views'),
         children: [
             {
                 path: '',
                 name: 'dashboard',
-                component: () => import(/* webpackChunkName: "dashboard" */ '../views/dashboard/Dashboard.vue'),
+                component: () => import(/* webpackChunkName: "dashboard" */ '../views/dashboard'),
             },
             {
                 path: 'tables',

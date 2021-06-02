@@ -10,8 +10,8 @@
 
 <script>
 
-import { buttonSize } from '../core/yng-sizes'
-import { buttonColor } from '../core/yng-colors'
+import { buttonSize } from '../refs/yng-sizes'
+import { buttonColor } from '../refs/yng-colors'
 
 export default {
     props: {

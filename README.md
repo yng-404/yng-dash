@@ -1,5 +1,8 @@
 # yng-dash
 
+An elegant dashboard with Atomic Design principle, built with Vue JS and Tailwind CSS
+
+
 ## Project setup
 ```
 npm install

@@ -9,8 +9,8 @@
 <script>
 
 
-import { badgeSize } from '../core/yng-sizes'
-import { badgeColor } from '../core/yng-colors'
+import { badgeSize } from '../refs/yng-sizes'
+import { badgeColor } from '../refs/yng-colors'
 
 export default {
     props: {

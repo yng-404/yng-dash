@@ -4,32 +4,21 @@
             {{ label }}
         </label>
         <div class="flex items-center relative">
-            <span 
-                :class="[
-                 error ? 'text-red-300' : 'text-gray-300', 
-                    { 'text-teal-300' : success }
-                ]" 
-                class="absolute left-0 ml-3 pointer-events-none">
+            <span :class="colorClass" class="absolute left-0 ml-3 pointer-events-none opacity-40">
                 <slot name="icon-left"></slot>
             </span>
             <yng-input 
-                :type="type"
-                :customSize="padding"
-                :placeholder="placeholder"
-                :class="[{ 'border-red-300' : error, 'border-teal-300' : success }, borderColor]"
+                :size="size"
+                :icon="withIcon"
+                :color="color"
                 class="w-full"
             />
-            <span 
-                :class="[
-                    error ? 'text-red-300' : 'text-gray-300', 
-                    { 'text-teal-300' : success }
-                ]" 
-                class="absolute right-0 mr-3 pointer-events-none">
+            <span :class="colorClass" class="absolute right-0 mr-3 pointer-events-none opacity-40">
                 <slot name="icon-right"></slot>
             </span>
         </div>
-        <span v-if="error" class="text-xs tracking-wider text-red-500 pt-2 inline-block">
-            <slot name="error">{{ error }}</slot>
+        <span v-if="prompt" :class="colorClass" class="text-xs tracking-wider pt-2 inline-block">
+            <slot name="error">{{ prompt }}</slot>
         </span>
     </div>
 </template>
@@ -44,42 +33,40 @@ export default {
         YngInput 
     },
     props: {
-        error: {
-            default: null
+        color: {
+            default: 'base'
         },
-        success: {
-            default: false
+        size: {
+            default: 'base'
         },
-        placeholder: {
+        prompt: {
             default: null
         },
         label: {
             default: null
         },
-        type: {
-            default: 'text'
-        },
-        borderColor: {
-            default: null
-        }
+
     },
     computed: {
-        iconClass() {
+        colorClass() {
             return {
-                right: 'right-0 mr-3',
-                left: 'left-0 ml-3',
-            }[this.iconPosition]
+                base: '',
+                error: 'text-red-500',
+                success: 'text-green-500',
+                warning: 'text-yellow-500',
+                disabled: ''
+            }[this.color]
         },
-        padding() {
+        withIcon() {
             if (this.$slots['icon-left'] && this.$slots['icon-right']) {
-                return 'px-9 py-1.5'
+                return 'both'
             } else {
                 if (this.$slots['icon-right']) {
-                    return 'pr-9 pl-3 py-1.5'
+                    return 'right'
                 } else if(this.$slots['icon-left']) {
-                    return 'pr-3 pl-9 py-1.5'
+                    return 'left'
                 } else {
-                    return 'px-3 py-1.5'
+                    return 'none'
                 }
             }
         }

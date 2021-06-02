@@ -7,13 +7,45 @@ export const buttonSize = {
 }
 
 export const inputSize = {
-    sm:     'px-2 py-1 text-xs',
-    base:   'px-3 py-1.5 text-sm',
-    md:     'px-4 py-1.5 text-base',
-    lg:     'px-6 py-2 text-md',
-    xl:     'px-8 py-2.5 text-lg',
-
+    sm:     'py-1 text-xs',
+    base:   'py-1.5 text-sm',
+    md:     'py-1.5 text-base',
+    lg:     'py-2 text-md',
+    xl:     'py-2.5 text-lg',
 }
+
+
+export const inputSizeIcon = {
+    none: {
+        sm:     'px-2',
+        base:   'px-3',
+        md:     'px-4',
+        lg:     'px-5',
+        xl:     'px-6',
+    },
+    left: {
+        sm:     'pl-9 pr-2',     
+        base:   'pl-10 pr-3',   
+        md:     'pl-10 pr-4',     
+        lg:     'pl-12 pr-5',     
+        xl:     'pl-12 pr-6',     
+    },
+    right: {
+        sm:     'pr-9 pl-2',     
+        base:   'pr-10 pl-3',   
+        md:     'pr-10 pl-4',     
+        lg:     'pr-12 pl-5',     
+        xl:     'pr-12 pl-6',     
+    },
+    both: {
+        sm:     'px-9',
+        base:   'px-10',
+        md:     'px-10',
+        lg:     'px-12',
+        xl:     'px-12',
+    }
+}
+
 
 export const badgeSize = {
     sm:     'px-1.5 py-0.5 leading-none text-2xs',

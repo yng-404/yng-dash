@@ -1,7 +1,7 @@
 <template>
     <button 
-        :type="type"
         :class="[defaultClass, colorClass]"
+        :disabled="color === 'disabled' || disabled"
         class="bg-gradient-to-tr rounded-md focus:outline-none tracking-widest-2 font-medium uppercase"
         >
         <slot>Primary</slot>
@@ -15,8 +15,8 @@ import { buttonColor } from '../core/yng-colors'
 
 export default {
     props: {
-        type: {
-            default: null
+        disabled: {
+            default: false
         },
         color: {
             default: 'primary'

@@ -2,10 +2,17 @@
     <div class="flex items-center relative">
         <yng-input 
             :type="type"
-            :customSize="padding"
+            :class="padding"
+            :disabled="disabled"
+            :size="size"
+            :color="color"
+            :icon="iconPosition"
+            :colorFocus="colorFocus"
+            :customSize="customSize"
+            :customColor="customColor"
             class="w-full"
         />
-        <span :class="iconClass" class="absolute opacity-20 pointer-events-none">
+        <span :class="iconClass" class="absolute opacity-30 pointer-events-none">
             <slot></slot>
         </span>
     </div>
@@ -26,6 +33,24 @@ export default {
         },
         iconPosition: {
             default: 'left'
+        },
+        disabled: {
+            default: false
+        },
+        size: {
+            default: 'base'
+        },
+        color: {
+            default: 'base'
+        },
+        colorFocus: {
+            default: 'base'
+        },
+        customSize: {
+            default: null
+        },
+        customColor: {
+            default: null
         }
     },
     computed: {
@@ -35,11 +60,6 @@ export default {
                 left: 'left-0 ml-3',
             }[this.iconPosition]
         },
-        padding() {
-            return this.iconPosition === 'right' 
-                ? 'pr-9 pl-3 py-1.5'
-                : 'pr-3 pl-9 py-1.5'
-        }
     }
 }
 </script>

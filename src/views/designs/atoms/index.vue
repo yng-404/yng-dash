@@ -1,5 +1,5 @@
 <template>
-    <div class="lg:p-6 p-4 space-y-6">
+    <div class="lg:p-6 p-4 space-y-6 bg-gray-100">
         <h3 class="text-xl">Atoms</h3>
         
         <ul class="gap-4 flex flex-wrap items-center">
@@ -50,6 +50,12 @@
                 </template>
             </div>
 
+            <div class="gap-4 grid lg:grid-cols-3 md:grid-cols-2 pt-8">
+                <template v-for="i in inputs" :key="i">
+                    <yng-input :color="i" :value="i" />
+                </template>
+            </div>
+            
 
             <div class="gap-4 flex flex-wrap pt-8">
                 <yng-menu-item>
@@ -109,6 +115,7 @@ import YngCardBasic from './YngCardBasic.vue'
 import YngToggle from './YngToggle.vue'
 import YngTooltip from './YngTooltip.vue'
 import YngMenuItem from './YngMenuItem.vue'
+import YngInput from './YngInput.vue'
 
 export default {
     components: { 
@@ -122,7 +129,8 @@ export default {
         YngCardBasic,
         YngButtonExit,
         YngCardBar,
-        YngMenuItem 
+        YngMenuItem,
+        YngInput 
     },
     data() {
         return {
@@ -152,6 +160,7 @@ export default {
                 { border: 'bottom', type: 'danger', }, 
                 { border: 'right', type: 'warning', }, 
             ],
+            inputs: [ 'base', 'disabled', 'error', 'success' ],
             tooltips: [ 'up', 'down', 'left', 'right', ],
             toggles: [
                 { type: 'arrow', show: false, },

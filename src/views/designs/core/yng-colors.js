@@ -62,8 +62,13 @@ export const blockQuoteColor = {
 }
 
 export const inputColor = {
-    base: 'bg-gray-50 border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-opacity-30 focus:border-blue-500 focus:ring-blue-400 focus:bg-white',
-    disabled: '',
-    error: '',
-    success: ''
+    base: 'border-gray-300 text-gray-700',
+    disabled: 'bg-gray-50 text-gray-400',
+    error: 'border-red-300 text-red-500',
+    warning: 'border-orange-300 text-yellow-500',
+    success: 'border-teal-400 text-green-500'
+}
+
+export const inputColorFocus = {
+    base: 'focus:outline-none focus:ring-2 focus:ring-opacity-30 focus:border-blue-500 focus:ring-blue-400 focus:text-gray-700'
 }

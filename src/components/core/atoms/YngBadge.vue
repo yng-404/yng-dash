@@ -1,6 +1,6 @@
 <template>
     <span 
-        :class="[defaultSize, colorClass]"
+        :class="[defaultSize, defaultColor]"
         class="inline-flex bg-gradient-to-tr uppercase border tracking-widest font-mono rounded-md">
         <slot>Badge</slot>
     </span>
@@ -28,7 +28,7 @@ export default {
         }
     },
     computed: {
-        colorClass() {
+        defaultColor() {
             return this.customColor 
                 ? this.customColor 
                 : badgeColor[this.color] || badgeColor.primary

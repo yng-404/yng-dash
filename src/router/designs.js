@@ -1,19 +1,26 @@
+import moleculeChild from './molecules'
+import atomChild from './atoms'
+
 export default [
     {
         path: 'atoms',
         name: 'atoms',
-        component: () => import(/* webpackChunkName: "atoms" */ '../views/designs/Atoms'),
+        redirect: '/designs/atoms/buttons',
+        component: () => import(/* webpackChunkName: "atoms" */ '../views/designs/atoms/'),
+        children: atomChild
     },
     {
         path: 'molecules',
         name: 'molecules',
-        component: () => import(/* webpackChunkName: "molecules" */ '../views/designs/Molecules'),
+        redirect: '/designs/molecules/widgets',
+        component: () => import(/* webpackChunkName: "molecules" */ '../views/designs/molecules/'),
+        children: moleculeChild
     },
-    // {
-    //     path: 'organisms',
-    //     name: 'organisms',
-    //     component: () => import(/* webpackChunkName: "organisms" */ '../views/designs/organisms'),
-    // },
+    {
+        path: 'organisms',
+        name: 'organisms',
+        component: () => import(/* webpackChunkName: "organisms" */ '../views/designs/Organisms'),
+    },
     // {
     //     path: 'templates',
     //     name: 'templates',

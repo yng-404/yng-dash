@@ -1,7 +1,7 @@
 <template>
     <div 
-        :class="[colorClass, defaultSize]" 
-        class="bg-gradient-to-tr rounded-md flex items-center justify-between tracking-wider">
+        :class="[defaultColor, defaultSize]" 
+        class="rounded-md tracking-wider">
         <slot>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, non ipsam laudantium earum nisi ab libero consectetur temporibus nobis, ducimus explicabo.</p>
         </slot>
@@ -11,12 +11,12 @@
 <script>
 
 import { barColor } from '../refs/yng-colors'
-import { barSize } from '../refs/yng-sizes'
+import { globeSize } from '../refs/yng-sizes'
 
 export default {
     props: {
         color: {
-            default: 'danger'
+            default: 'plain'
         },
         size: {
             default: 'base'
@@ -32,17 +32,17 @@ export default {
         }
     },
     computed: {
-        colorClass() {
+        defaultColor() {
             return this.customColor 
                 ? this.customColor 
                 : this.inverted 
-                    ? barColor.inverted[this.color] || barColor.inverted.primary
-                    : barColor.normal[this.color] || barColor.normal.primary
+                    ? barColor.inverted[this.color] || ''
+                    : barColor.normal[this.color] || ''
         },
         defaultSize() {
             return this.customSize 
                 ? this.customSize 
-                : barSize[this.size] || barSize.base
+                : globeSize[this.size] || ''
         }
     }
 }

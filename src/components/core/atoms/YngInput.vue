@@ -3,7 +3,7 @@
         :class="[defaultColor, defaulSize]"
         :id="inputId"
         :disabled="color === 'disabled' || disabled"
-        class="rounded-md border tracking-wider placeholder-gray-400"
+        class="rounded-md border tracking-wider"
     />
 </template>
 

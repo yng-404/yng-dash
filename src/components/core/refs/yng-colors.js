@@ -26,24 +26,26 @@ export const badgeColor = {
 
 export const barColor = {
     normal: {
-        primary:    'border from-indigo-50 to-blue-50 border-blue-300 text-blue-600',
-        secondary:  'border from-gray-100 to-gray-50 border-gray-300 text-gray-600',
-        success:    'border from-green-50 to-teal-50 border-teal-300 text-teal-600' ,
-        danger:     'border from-red-50 to-pink-50 border-red-300 text-red-600',
-        alert:      'border from-red-50 to-pink-50 border-red-300 text-red-600',
-        warning:    'border from-orange-50 to-yellow-50 border-orange-300 text-orange-600',
-        info:       'border from-blue-50 to-cyan-50 border-cyan-400 text-cyan-600',
-        light:      'border from-gray-50 to-bg-white border-gray-300 text-gray-600',
+        primary:    'bg-gradient-to-tr border from-indigo-50 to-blue-50 border-blue-300 text-blue-600',
+        secondary:  'bg-gradient-to-tr border from-gray-100 to-gray-50 border-gray-300 text-gray-600',
+        success:    'bg-gradient-to-tr border from-green-50 to-teal-50 border-teal-300 text-teal-600' ,
+        danger:     'bg-gradient-to-tr border from-red-50 to-pink-50 border-red-300 text-red-600',
+        alert:      'bg-gradient-to-tr border from-red-50 to-pink-50 border-red-300 text-red-600',
+        warning:    'bg-gradient-to-tr border from-orange-50 to-yellow-50 border-orange-300 text-orange-600',
+        info:       'bg-gradient-to-tr border from-blue-50 to-cyan-50 border-cyan-400 text-cyan-600',
+        light:      'bg-gradient-to-tr border from-gray-50 to-white border-gray-300 text-gray-600',
+        plain:      '',
     },
     inverted: {
-        primary:    'text-white from-indigo-600 to-blue-500',
-        secondary:  'text-white from-gray-600 to-gray-500 ',
-        success:    'text-white from-green-600 to-teal-500' ,
-        danger:     'text-white from-red-600 to-pink-500',
-        alert:      'text-white from-red-600 to-pink-500',
-        warning:    'text-white from-orange-600 to-yellow-500',
-        info:       'text-white from-blue-600 to-cyan-500',
-        light:      'text-white from-gray-900 to-gray-700 ',
+        primary:    'bg-gradient-to-tr text-white from-indigo-600 to-blue-500',
+        secondary:  'bg-gradient-to-tr text-white from-gray-600 to-gray-500 ',
+        success:    'bg-gradient-to-tr text-white from-green-600 to-teal-500' ,
+        danger:     'bg-gradient-to-tr text-white from-red-600 to-pink-500',
+        alert:      'bg-gradient-to-tr text-white from-red-600 to-pink-500',
+        warning:    'bg-gradient-to-tr text-white from-orange-600 to-yellow-500',
+        info:       'bg-gradient-to-tr text-white from-blue-600 to-cyan-500',
+        light:      'bg-gradient-to-tr text-white from-gray-900 to-gray-700 ',
+        plain:      'text-white bg-black',
         
     }
 }
@@ -71,4 +73,17 @@ export const inputColor = {
 
 export const inputColorFocus = {
     base: 'focus:outline-none focus:ring-2 focus:ring-opacity-30 focus:border-blue-500 focus:ring-blue-400 focus:text-gray-700'
+}
+
+
+export const progressColor = {
+    primary:    'bg-indigo-400',
+    secondary:  'bg-gray-400 ',
+    success:    'bg-green-400' ,
+    danger:     'bg-red-400',
+    alert:      'bg-red-400',
+    warning:    'bg-orange-400',
+    info:       'bg-blue-400',
+    light:      'bg-gray-500',
+    plain:      'bg-gray-500',
 }

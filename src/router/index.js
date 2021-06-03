@@ -18,11 +18,6 @@ const routes = [
                 component: () => import(/* webpackChunkName: "table" */ '../views/table'),
             },
             {
-                path: 'cards',
-                name: 'cards',
-                component: () => import(/* webpackChunkName: "cards" */ '../views/card'),
-            },
-            {
                 path: 'icons',
                 name: 'icons',
                 component: () => import(/* webpackChunkName: "icons" */ '../views/icon'),

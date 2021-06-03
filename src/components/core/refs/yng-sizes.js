@@ -1,9 +1,19 @@
+export const globeSize = {
+    none:   '',
+    sm:     'px-3 py-1.5 text-xs',
+    base:   'px-4 py-2 text-sm',
+    md:     'px-4 py-2.5 text-base',
+    lg:     'px-5 py-3 text-md',
+    xl:     'px-5 py-3 text-lg',
+}
+
+
 export const buttonSize = {
     sm:     'px-2.5 py-1 text-3xs',
     base:   'px-3 py-1.5 text-xs',
     md:     'px-4 py-2 text-sm',
-    lg:     'px-6 py-2.5 text-md',
-    xl:     'px-8 py-3 text-lg'
+    lg:     'px-5 py-2.5 text-lg',
+    xl:     'px-6 py-3 text-2xl'
 }
 
 export const inputSize = {
@@ -71,15 +81,6 @@ export const toggleSize = {
     xl:     'w-8 h-8',
 }
 
-export const barSize = {
-    sm:     'px-3 py-1.5 text-xs',
-    base:   'px-4 py-2 text-sm',
-    md:     'px-4 py-2.5 text-base',
-    lg:     'px-5 py-3 text-md',
-    xl:     'px-5 py-3 text-lg',
-
-}
-
 export const blockQuoteSize = {
     sm: {
         top:     'border-t-6',
@@ -111,4 +112,12 @@ export const blockQuoteSize = {
         left:    'border-l-14',
         right:   'border-r-14'
     }
+}
+
+export const progressSize = {
+    sm:     'h-1',
+    base:   'h-1',
+    md:     'h-1.5',
+    lg:     'h-2',
+    xl:     'h-2.5',
 }

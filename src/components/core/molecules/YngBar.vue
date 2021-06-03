@@ -5,6 +5,7 @@
         :size="size"
         :customSize="customSize"
         :customColor="customColor"
+        class="flex items-center justify-between"
         >
         <div class="flex space-x-2 items-start">
             <slot>

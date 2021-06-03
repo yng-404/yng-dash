@@ -1,8 +1,7 @@
 <template>
     <div class="flex items-center relative">
         <yng-input 
-            :type="type"
-            :disabled="disabled"
+            v-bind="$attrs"
             :size="size"
             :color="color"
             :icon="iconPosition"
@@ -32,9 +31,6 @@ export default {
         },
         iconPosition: {
             default: 'left'
-        },
-        disabled: {
-            default: false
         },
         size: {
             default: 'base'

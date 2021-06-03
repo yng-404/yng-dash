@@ -1,7 +1,5 @@
 <template>
-    <yng-button 
-        :color="color" 
-        class="flex items-center">
+    <yng-button class="flex items-center">
         <slot name="icon-left"></slot>
         <span :class="padding">
             <slot></slot>
@@ -16,23 +14,36 @@
 import YngButton from '../atoms/YngButton'
 
 export default {
-    props: {
-        color: {
-            default: 'primary'
-        }
-    },
     components: { 
         YngButton 
     },
     computed: {
         padding() {
             if (this.$slots['icon-left'] && this.$slots['icon-right']) {
-                return 'px-2'
+                return {
+                    sm:     'px-1.5',
+                    base:   'px-2',
+                    md:     'px-2.5',
+                    lg:     'px-3',
+                    xl:     'px-4',
+                }[this.$attrs.size]
             } else {
                 if (this.$slots['icon-right']) {
-                    return 'pr-2'
+                    return {
+                        sm:     'pr-1.5',
+                        base:   'pr-2',
+                        md:     'pr-2.5',
+                        lg:     'pr-3',
+                        xl:     'pr-4',
+                    }[this.$attrs.size]
                 } else if(this.$slots['icon-left']) {
-                    return 'pl-2'
+                    return {
+                        sm:     'pl-1.5',
+                        base:   'pl-2',
+                        md:     'pl-2.5',
+                        lg:     'pl-3',
+                        xl:     'pl-4',
+                    }[this.$attrs.size]
                 } else {
                     return ''
                 }

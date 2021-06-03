@@ -1,6 +1,6 @@
 <template>
     <button 
-        :class="[defaultClass, colorClass]"
+        :class="[defaultSize, defaultColor]"
         :disabled="color === 'disabled' || disabled"
         class="bg-gradient-to-tr rounded-md focus:outline-none tracking-widest-2 font-medium uppercase"
         >
@@ -35,12 +35,12 @@ export default {
         }
     },
     computed: {
-        colorClass() {
+        defaultColor() {
             return this.customColor 
                 ? this.customColor
                 : buttonColor[this.color] || buttonColor.primary
         },
-        defaultClass() {
+        defaultSize() {
             return this.customSize 
                 ? this.customSize
                 : buttonSize[this.size] || buttonSize.base

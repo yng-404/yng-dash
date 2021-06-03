@@ -1,23 +1,26 @@
 <template>
-    <div class="lg:p-6 p-4 space-y-6">
+    <div class="lg:p-6 p-4 space-y-6 h-screen">
         <h3 class="text-xl">Organisms</h3>
-        <ul class="space-y-2">
-            <li v-for="organism in organisms" :key="organism">
-                {{ organism }}
-            </li>
-        </ul>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <yng-tab />
     </div>
 </template>
 
 
 <script>
+
+import YngTab from '@/components/core/organisms/YngTab.vue'
+
 export default {
-    data() {
-        return {
-            organisms: [
-                'Hero', 'Call to Actions', 'Pricing', 'Menus', 'Navbars', 'Modals', 'Notification Bars', 'Form Groups','Form with Validations', 'Paginations', 'Tables'
-            ]
-        }
-    }
+    components: { YngTab },
+
 }
 </script>

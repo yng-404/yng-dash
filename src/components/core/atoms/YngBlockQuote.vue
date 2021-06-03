@@ -1,7 +1,7 @@
 <template>
     <blockquote
-        :class="[borderClass, colorClass]"
-        class="px-4 py-2 rounded-md border-b- text-sm tracking-wider w-full border"
+        :class="[borderClass, defaultSize, defaultColor]"
+        class="border rounded-md tracking-wider w-full"
     >
         <slot></slot>
     </blockquote>
@@ -10,7 +10,7 @@
 <script>
 
 
-import { blockQuoteSize } from '../refs/yng-sizes'
+import { blockQuoteSize, globeSize } from '../refs/yng-sizes'
 import { blockQuoteColor } from '../refs/yng-colors'
 
 export default {
@@ -32,10 +32,15 @@ export default {
         }
     },
     computed: {
-        colorClass() {
+        defaultColor() {
             return  this.customColor 
                 ? this.customColor
                 : blockQuoteColor[this.color] || blockQuoteColor.primary
+        },
+        defaultSize() {
+            return this.customSize 
+                ? this.customSize
+                : globeSize[this.size] || globeSize.base
         },
         borderClass() {
             return this.customSize 

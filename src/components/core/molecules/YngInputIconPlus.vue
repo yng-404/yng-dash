@@ -8,6 +8,7 @@
                 <slot name="icon-left"></slot>
             </span>
             <yng-input 
+                v-bind="$attrs"
                 :size="size"
                 :icon="withIcon"
                 :color="color"

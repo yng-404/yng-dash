@@ -10,7 +10,7 @@
                 :isMenuOpen="isMenuOpen"
                 @toggleMenu="isMenuOpen = !isMenuOpen" 
             />
-            <main class="overflow-auto">
+            <main class="overflow-auto bg-gradient-to-tr h-full from-gray-100 to-gray-50">
                 <router-view />
             </main>
             <nav-footer />

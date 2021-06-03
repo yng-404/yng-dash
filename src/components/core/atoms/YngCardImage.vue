@@ -1,15 +1,13 @@
 <template>
     <div 
-        :class="imgPosition"
-        class="flex overflow-hidden">
+        :class="[imgPosition, imgHeight]"
+        class="flex border divide-gray-300 rounded-md border-gray-300 overflow-hidden relative bg-white">
         <div 
-            :class="[imgClass, imgWidth]"
-            class="relative flex-shrink-0 bg-gray-50" :style="imgHeight">
-            <img v-if="image" :src="image" alt="" class="absolute h-full w-full object-fill opacity-10" />
-            <img v-else src="@/assets/svg/image.svg" alt="" class="absolute h-full w-full object-fill p-8 opacity-10" />
+            :class="[imgWidth, imgHeight]" class="relative flex-shrink-0 border-12 border-transparent" :style="imgAspectRatio">
+            <img v-if="image" :src="image" alt="" class="absolute rounded-md h-full w-full object-fill opacity-10" />
         </div>
         <div 
-            :style="contentHeight"
+            :class="contentHeight"
             class="p-4 order-2 w-full">
             <slot></slot>
         </div>
@@ -19,16 +17,15 @@
 
 <script>
 
-
-
 export default {
     props: {
         image: {
             default: null
         },
         imageAspectRatio: {
-            default: '1:3'
+            default: '1:1'
         },
+
         imagePosition: {
             default: 'left'
         }
@@ -49,6 +46,11 @@ export default {
                 left: 'order-1',
                 right: 'order-3 border-l'
             }[this.imagePosition]
+        },
+        imgAspectRatio() {
+            const ratio = this.imageAspectRatio.split(':')
+            const pb = ( parseInt(ratio[1]) / parseInt(ratio[0])) * 100
+            return `padding-bottom: ${pb}%`
         },
         imgWidth() {
             const ratio = this.imageAspectRatio.split(':')
